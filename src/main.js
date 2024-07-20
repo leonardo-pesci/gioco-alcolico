@@ -39,7 +39,6 @@ const lastLanguageElement = document.querySelector('#' + langSelected)
 /**========================================================================
  **                            VARIABILI
  *========================================================================**/
-let conteggio = 52
 let conteggioK = 4
 let index = 1
 let started = false

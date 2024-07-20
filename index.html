@@ -1,143 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
+<head>
 
-        <!-- Meta -->
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Meta -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Info -->
+    <title>Gioco alcolico</title>
+    <link rel="icon" href="img/logo.png">
+
+    <!-- Style -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ysabeau+SC:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- Home -->
+    <div class="home">
         
-        <!-- Info -->
-        <title>Gioco alcolico</title>
-        <link rel="icon" href="img/logo.png">
+        <header>
+            <h1>La coppa del re</h1>
+            <h2>Premi "avvia" per iniziare la partita</h2>
+        </header>
 
-        <!-- Style -->
-        <link rel="stylesheet" href="style.css">
-        
-        <!-- Font -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Ysabeau+SC:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+        <div class="principale">
+            <div class="logo">
+                <img src="img/logo.png" alt="">
+            </div>
+            <div class="bottone">
+                <button class="startButton">AVVIA</button>
+            </div>
+        </div>
 
-    </head>
+    </div>
 
-    <body>
-
-        <!-- Home -->
-        <div class="home">
+    <!-- Settings -->
+    <div class="menu hidden">
+        <div class="menuBox">
             
-            <header>
-                <h1>La coppa del re</h1>
-                <h2>Premi "avvia" per iniziare la partita</h2>
-            </header>
+            <div class="bar">
+                <input type="text" placeholder="Inserisci il nome del giocatore" name="enter" class="player">
+                <div class="add">✚</div>
+                <div class="confirm">➤</div>
+            </div>
 
-            <div class="principale">
-                <div class="logo">
-                    <img src="img/logo.png" alt="">
-                </div>
-                <div class="bottone">
-                    <button class="startButton">AVVIA</button>
-                </div>
+            <div class="errorMessage hidden">
+                <h4>errore!</h4> <br>
+                <span>clicca prima il pulsante "+"</span>
             </div>
 
         </div>
 
-        <!-- Players -->
-        <div class="menu hidden">
-            <div class="menuBox">
-                
-                <div class="bar">
-                    <input type="text" placeholder="Inserisci il nome del giocatore" name="enter" class="player">
-                    <div class="add">✚</div>
-                    <div class="confirm">➤</div>
-                </div>
+        <div class="playersListDisplay"></div>
 
-                <div class="errorMessage hidden">
-                    <h4>errore!</h4> <br>
-                    <span>clicca prima il pulsante "+"</span>
-                </div>
+        <div class="languages">
+            <div class="language italiano selected"></div>
+            <div class="language inglese"></div>
+            <div class="language spagnolo"></div>
+            <div class="language romano"></div>
+            <div class="language napoletano"></div>
+        </div>
+    </div>
 
-            </div>
-
-            <div class="playersListDisplay"></div>
-
-            <div class="languages">
-                <div class="language italiano selected"></div>
-                <div class="language inglese"></div>
-                <div class="language spagnolo"></div>
-                <div class="language romano"></div>
-                <div class="language napoletano"></div>
-            </div>
+    <!-- Loading -->
+    <div class="loading hidden">
+        <div class="contGif">
+            <img src="img/loading.gif" alt="">
         </div>
 
-        <!-- Loading -->
-        <div class="loading hidden">
-            <div class="contGif">
-                <img src="img/loading.gif" alt="">
-            </div>
+    </div>
 
+    <!-- Game -->
+    <div id="placeHolder"></div>
+
+    <template class="extractionTemplate">
+
+        <div class="kCounter">
+            <div class="kCounterText">4K</div>
         </div>
 
-        <!-- Placeholder -->
-        <div id="placeHolder"></div>
+        <div class="container">
 
-        <!-- Extraction -->
-        <template class="extractionTemplate">
+            <div class="cardImage"></div>
 
-            <div class="kCounter">
-                <div class="kCounterText">4K</div>
+            <div class="cardType">
+                <p>Sorsa</p>
             </div>
-            <div class="container">
-                <div class="counterText">51</div>
-                <div class="cardImage"></div>
 
-                <div class="cardText">
-                    <p>re di cuori</p>
-                </div>
-
-                <div class="next">
-                    estrai
-                </div>
-
-                <div class="playerName">
-                    pippo
-                </div>
-                
+            <div class="cardText">
+                <p>Bevi due sorse</p>
             </div>
-            <div class="buttonContainer">
-                <div class="guideBtn">﹖</div>
-                <div class="editBtn">✎</div>
+
+            <div class="next">
+                <p>pesca</p>
             </div>
             
-        </template>
+        </div>
+        <div class="buttonContainer">
+            <div class="guideBtn">﹖</div>
+            <div class="editBtn">✎</div>
+        </div>
+        
+    </template>
 
-        <!-- Guide -->
-        <div class="guide hidden">
-            <div class="exit">✗</div>
-            <div class="guideBox">
-                
+    <!-- Guide -->
+    <div class="guide hidden">
+        <div class="exitGuide">✗</div>
+        <div class="guideBox">
+            
+        </div>
+    </div>
+
+    
+
+    <!-- Endgame -->
+    <template class="gameFinishedTemplate">
+
+        <div class="megaBox">
+            <div class="box">
+                <div class="emoji">🏆</div> 
+                <h1 class="title"></h1>
+                <button class="rigioca">Rigioca</div>
             </div>
         </div>
+    </template>
 
-        <!-- Edit -->
-        <div class="editPage hidden">
-            <div class="exitEdit">✗</div>
-                
-            </div>
-        </div>
-
-        <!-- Gamefinished -->
-        <template class="gameFinishedTemplate">
-
-            <div class="megaBox">
-                <div class="box">
-                    <div class="emoji">🏆</div> 
-                    <h1 class="title"></h1>
-                    <button class="rigioca">Rigioca</div>
-                </div>
-            </div>
-        </template>
-
-        <script src="script.js"></script>
-    </body>
+    <script src="./src/main.js"></script>
+</body>
 </html>
