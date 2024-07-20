@@ -1,4 +1,4 @@
-.menu{
+.settings{
     width: 100vw;
     height: 100vh;
     position: absolute;
@@ -6,7 +6,7 @@
     z-index: -1;
 }
 
-.menuBox{
+.settingsBox{
     width: 100vw;
     position: relative;
     top: 260px;
@@ -90,7 +90,7 @@
     cursor: pointer;
 }
 
-.lingue{
+.languagesBox{
     width: 100%;
     height: 100px;
     display: flex;
@@ -102,7 +102,7 @@
     bottom: 15px;
 }
 
-.lingua{
+.language{
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -113,65 +113,26 @@
     cursor: pointer;
 }
 
-.italiano{
-    background-image: url(img/lingua/italia.png);
+.italian{
+    background-image: url(./../img/languages/ita.png);
 }
 
-.inglese{
-    background-image: url(img/lingua/ing.png);
+.english{
+    background-image: url(./../img/languages/eng.png);
 }
 
-.spagnolo{
-    background-image: url(img/lingua/spagna.png);
+.spanish{
+    background-image: url(./../img/languages/spa.png);
 }
 
-.romano{
-    background-image: url(img/lingua/roma.png);
+.roman{
+    background-image: url(./../img/languages/rom.png);
 }
 
-.napoletano{
-    background-image: url(img/lingua/napoli.png);
+.napolitan{
+    background-image: url(./../img/languages/nap.png);
 }
 
 .selected{
     opacity: 1;
-}
-
-
-
-
-
-
-/* edit */
-.editPage{
-    position: fixed;
-    top: 115px;
-    bottom: 40px;
-    left: 35px;
-    right: 35px;
-    max-width: 500px;
-    margin: auto;
-    background: radial-gradient(closest-side, #727272, #422b05);
-    z-index: 2;
-    border-radius: 10px;
-}
-
-.editPage span{
-    color: white;
-    display: block;
-    margin: 15px;
-}
-
-.exitEdit{
-    width: 28px;
-    height: 28px;
-    font-size: 20px;
-    color: white;
-    border: 2px solid white;
-    border-radius: 50%;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    line-height: 1.1;
 }

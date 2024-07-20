@@ -15,6 +15,7 @@ html {
     font-family: 'Ysabeau SC', sans-serif;
     color: black;
     background-image: url(img/bg.jpg);
+    background-color: blanchedalmond; /* ! */
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -22,7 +23,12 @@ html {
     text-align: center;
 }
 
-/* Utilities */
+/* ^ Class */
+.btn {
+    
+}
+
+/* ^ Utilities */
 .hidden {
     display: none
 }

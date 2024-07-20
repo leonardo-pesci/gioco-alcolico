@@ -112,6 +112,8 @@ addButton.addEventListener("click", function(){
         })   
     })
 })
+
+
 confirmButton.addEventListener("click", function(){
     // messaggio di errore
     let player = document.querySelector(".player")
@@ -178,6 +180,7 @@ confirmButton.addEventListener("click", function(){
         started = true
     }
 })
+
 italiano.addEventListener("click", function(){
     langSelected = "italiano"
 
