@@ -1,0 +1,21 @@
+.megaBox{
+    margin: 110px auto 20px;
+    padding: 20px;
+}
+
+.box{
+    max-width: 450px;;
+    font-size: 18px;
+    padding: 20px;
+    border: 2px solid #fbfb43;
+    margin: auto
+}
+
+.emoji{
+    font-size: 40px;
+}
+
+.title{
+    font-size: 30px;
+    font-weight: 500px;    
+}

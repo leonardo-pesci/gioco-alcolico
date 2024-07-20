@@ -1,0 +1,90 @@
+header{
+    color: white;
+    background: radial-gradient(farthest-side, #727272, #422b05);
+    border-bottom: 4px solid aliceblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    justify-content: center;
+    margin: 40px auto;
+}
+
+.logo img{
+    width: 80%;
+    max-width: 400px;
+}
+
+header h1{
+    font-size: 36px;
+    font-weight: 600;
+}
+
+header h2{
+    font-size: 18px;
+    margin-top: 12px;
+}
+
+.startButton, .rigioca{
+    font-size: 20px;
+    border-radius: 40px;
+    color: white;
+    background: radial-gradient(closest-side, #727272, #422b05);
+    border: 0;
+    padding: 6px 30px;
+    margin-top: 15px;
+    cursor: pointer;
+}/* home */
+header{
+    color: white;
+    background: radial-gradient(farthest-side, #727272, #422b05);
+    border-bottom: 4px solid aliceblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    justify-content: center;
+    margin: 40px auto;
+}
+
+.logo img{
+    width: 80%;
+    max-width: 400px;
+}
+
+header h1{
+    font-size: 36px;
+    font-weight: 600;
+}
+
+header h2{
+    font-size: 18px;
+    margin-top: 12px;
+}
+
+.startButton, .rigioca{
+    font-size: 20px;
+    border-radius: 40px;
+    color: white;
+    background: radial-gradient(closest-side, #727272, #422b05);
+    border: 0;
+    padding: 6px 30px;
+    margin-top: 15px;
+    cursor: pointer;
+}

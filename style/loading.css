@@ -1,0 +1,11 @@
+.contGif{
+    position: absolute;
+    left: 50vw;
+    top: 50vh;
+    transform: translate(-50%, -50%);
+}
+
+.contGif img{
+    width: 80%;
+    max-width: 280px;
+}
