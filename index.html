@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <!-- Info -->
-        <title>La coppa del re</title>
+        <title>Gioco alcolico</title>
         <link rel="icon" href="img/logo.png">
 
         <!-- Style -->
@@ -42,31 +42,31 @@
 
         </div>
 
-        <!-- Menu -->
+        <!-- Players -->
         <div class="menu hidden">
             <div class="menuBox">
-                <div class="numMazzi">numero di mazzi</div>
-                <div class="buttons">
-                    <div class="unoButton selected">1</div>
-                    <div class="dueButton">2</div>
-                </div>
+                
                 <div class="bar">
                     <input type="text" placeholder="Inserisci il nome del giocatore" name="enter" class="player">
                     <div class="add">✚</div>
                     <div class="confirm">➤</div>
                 </div>
+
                 <div class="errorMessage hidden">
                     <h4>errore!</h4> <br>
                     <span>clicca prima il pulsante "+"</span>
                 </div>
+
             </div>
-            <div class="list"></div>
-            <div class="lingue">
-                <div class="lingua italiano selected"></div>
-                <div class="lingua inglese"></div>
-                <div class="lingua spagnolo"></div>
-                <div class="lingua romano"></div>
-                <div class="lingua napoletano"></div>
+
+            <div class="playersListDisplay"></div>
+
+            <div class="languages">
+                <div class="language italiano selected"></div>
+                <div class="language inglese"></div>
+                <div class="language spagnolo"></div>
+                <div class="language romano"></div>
+                <div class="language napoletano"></div>
             </div>
         </div>
 
@@ -84,14 +84,14 @@
         <!-- Extraction -->
         <template class="extractionTemplate">
 
-            <div class="conteggioK">
-                <div class="conteggioKText">4K</div>
+            <div class="kCounter">
+                <div class="kCounterText">4K</div>
             </div>
             <div class="container">
-                <div class="conteggio">51</div>
+                <div class="counterText">51</div>
                 <div class="cardImage"></div>
 
-                <div class="extractionText">
+                <div class="cardText">
                     <p>re di cuori</p>
                 </div>
 
@@ -105,8 +105,8 @@
                 
             </div>
             <div class="buttonContainer">
-                <div class="questionMark">﹖</div>
-                <div class="edit">✎</div>
+                <div class="guideBtn">﹖</div>
+                <div class="editBtn">✎</div>
             </div>
             
         </template>
@@ -116,14 +116,13 @@
             <div class="exit">✗</div>
             <div class="guideBox">
                 
-
             </div>
         </div>
 
         <!-- Edit -->
         <div class="editPage hidden">
             <div class="exitEdit">✗</div>
-                <span>Coming soon...</span>
+                
             </div>
         </div>
 
