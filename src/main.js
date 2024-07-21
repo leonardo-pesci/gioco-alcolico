@@ -20,6 +20,7 @@ const confirmButton = document.querySelector('#confirm')
 const guideBtn = document.querySelector('#guideBtn')
 const editBtn = document.querySelector('#editBtn')
 const playAgain = document.querySelector('#playAgain')
+const modeElements = document.querySelectorAll('.modeElement')
 
 let playerInput = document.querySelector('#playerInput')
 const card = document.querySelector('.card')
@@ -109,6 +110,21 @@ let goSettings = () => {
     home.classList.add('hidden')
     header.classList.remove('hidden')
     settings.classList.remove('hidden')
+}
+
+let goMode = () => {
+    // completa la lista
+    const listElements = document.querySelectorAll('.listElementText')
+    
+    listElements.forEach( (player) => {
+        players.push(player.innerText)
+    })
+    
+    if(playerInput.value != '') players.push(playerInput.value)
+
+    // cambia sezione
+    settings.classList.add('hidden')
+    mode.classList.remove('hidden')
 }
 
 let reGame = () => {
@@ -343,6 +359,7 @@ let setGameFinished = () => {
 //^========================================================================
 startButton.addEventListener('click', goSettings)
 goSettings() //!
+goMode() //!
 
 
 addButton.addEventListener('click', () => {
@@ -366,21 +383,7 @@ addButton.addEventListener('click', () => {
 })
 
 
-confirmButton.addEventListener('click', () => {
-
-    // completa la lista
-    const listElements = document.querySelectorAll('.listElementText')
-    
-    listElements.forEach( (player) => {
-        players.push(player.innerText)
-    })
-    
-    if(playerInput.value != '') players.push(playerInput.value)
-
-    // cambia sezione
-    settings.classList.add('hidden')
-    mode.classList.remove('hidden')
-})
+confirmButton.addEventListener('click', goMode)
 
 languages.forEach( (lang) => {
     lang.addEventListener('click', () => {
