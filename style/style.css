@@ -14,7 +14,7 @@ html {
     height: 100vh;
     font-family: 'Ysabeau SC', sans-serif;
     color: black;
-    background-image: url(img/bg.jpg);
+    /* background-image: url(img/bg.jpg); */
     background-color: blanchedalmond; /* ! */
     background-repeat: no-repeat;
     background-size: cover;

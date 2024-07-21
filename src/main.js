@@ -35,10 +35,10 @@ const languages = document.querySelectorAll('.language')
 //^                            VARIABILI
 //^========================================================================
 let conteggioK = 4
-let index = 1
 let started = false
 let memory = ''
-let langSelected = 'italiano'
+let langSelected = 'ita'
+let modeSelected = 'standard'
 const langStorage = localStorage.getItem('language')
 if (langStorage) langSelected = JSON.parse(langStorage)
 const lastLanguageElement = document.querySelector('#' + langSelected)
@@ -66,29 +66,36 @@ let types = [
 ]
 
 let modes = [
-    'classic',
-    'hard',
-    'free',
+    'classica',
+    'difficile',
     'hot',
-    'cup',
-    'custom',
+    'creativa',
+    'coppa',
+    'personalizzata',
 ]
 
 let players = []
 
 let cards = {
 
-    'ita': {
-        standard : {
-            '001': 'il giocatore X beve due sorse',
-            '002': 'tutte le ragazze bevono',
+    ita: {
+        sorsa : {
+            name: 'sorsa',
+            list: [
+                'il giocatore X beve due sorse',
+                'tutte le ragazze bevono',
+            ]
         },
+            
         categoria: {
-            '001': 'posti in cui non sarebbe carino tirare fuori il cazzo'
+            name: 'categoria',
+            list: [
+                'posti in cui non sarebbe carino tirare fuori il cazzo'
+            ]
         }
     },
     
-    'eng': {
+    eng: {
         standard : {
             '001': 'player X has to drink two sips',
             '002': 'every girl has to drink',
@@ -127,16 +134,123 @@ let goMode = () => {
     mode.classList.remove('hidden')
 }
 
+let goTypeSelector = () => {
+    mode.classList.add('hidden')
+    typeSelector.classList.remove('hidden')
+}
+
 let reGame = () => {
     window.location.reload()
 }
 
+let setMode = (mode) => {
+    switch (mode) {
+        case 'classica':
+            types = [
+                'sorsa',
+                'voto',
+                'scelta',
+                'regola',
+                'hai mai',
+                'categoria',
+                'ruolo',
+                'gioco di parole',
+                'gioco',
+                'specchio',
+                'sfida',
+                'linguaggio',
+                'duello',
+            ]
+        break
+        case 'difficile':
+            types = [
+                'sorsa',
+                'voto',
+                'scelta',
+                'regola',
+                'hai mai',
+                'categoria',
+                'ruolo',
+                'gioco di parole',
+                'gioco',
+                'specchio',
+                'sfida',
+                'linguaggio',
+                'duello',
+                'storia',
+                'quanto te la rischi',
+            ]
+        break
+        case 'hot':
+            types = [
+                'voto',
+                'scelta',
+                'regola',
+                'hai mai',
+                'ruolo',
+                'gioco',
+                'specchio',
+                'sfida',
+                'duello',
+                'quanto te la rischi',
+                'obbligo',
+                'verità',
+            ]
+        break
+        case 'creativa':
+            types = [
+                'sorsa',
+                'voto',
+                'scelta',
+                'regola',
+                'hai mai',
+                'categoria',
+                'ruolo',
+                'gioco di parole',
+                'gioco',
+                'specchio',
+                'sfida',
+                'linguaggio',
+                'duello',
+                'storia',
+                'quanto te la rischi',
+            ]
+            
+        break
+        case 'coppa':
+            types = [
+                'sorsa',
+                'voto',
+                'scelta',
+                'regola',
+                'hai mai',
+                'categoria',
+                'ruolo',
+                'gioco di parole',
+                'gioco',
+                'specchio',
+                'sfida',
+                'linguaggio',
+                'duello',
+                'storia',
+                'coppa',
+            ]
+
+        break
+        case 'personalizzata':
+            types = []
+            goTypeSelector()
+        break
+    }
+
+}
+
 let setGame = () => {
     
-    if(started === false){
+    if (started === false) {
         // nascondiamo la home
         document.body.classList.add('gameStarted')
-    }else{
+    } else {
         placeHolder.innerHTML=''
         numMazzi.classList.add('hidden')
         buttons.classList.add('hidden')
@@ -262,24 +376,25 @@ let showCard = () => {
 }
 
 //* Random functions
-let getRandomPlayer = (playersList) => {
-    // estraiamo un numero a caso
-    randomIndex = Math.floor(Math.random() * playersList.length)
+let getRandomPlayer = () => {
+    let index = Math.floor(Math.random() * players.length)
+    let player = players[index]
 
-    // estraiamo il giocatore corrispondente
-    return randomIndex
+    return player
 }
 
-let getRandomCard = () => {
+let getRandomType = () => {
+    let index = Math.floor(Math.random() * types.length)
+    let type = types[index]
+
+    return type
+}
+
+let getRandomCard = (type) => {
     // estraiamo un numero a caso
-    randomIndex = Math.floor(Math.random() * mazzo.length)
+    let index = Math.floor(Math.random() * cards[langSelected][type])
 
-    // estraiamo la carta corrispondente
-    const randomCard = mazzo[randomIndex]
-
-    // rimuoviamo la carta dal mazzo
-    mazzo.splice(randomIndex, 1)
-    return randomCard
+    return index
 }
 
 
@@ -397,6 +512,16 @@ languages.forEach( (lang) => {
         langSelected = name
         lang.classList.add('selected')
         localStorage.setItem('language', JSON.stringify(langSelected))
+    })
+})
+
+modeElements.forEach( (modeElement) => {
+    modeElement.addEventListener('click', () => {
+        let modeText = modeElement.innerText
+        modeSelected = modeText.toLowerCase()
+        setMode(modeSelected)
+
+        gameStared = true
     })
 })
 
