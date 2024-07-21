@@ -76,13 +76,17 @@ let modes = [
 
 let players = []
 
+//!
+types = ['sorsa', 'categoria']
+players = ['leo', 'emme']
 let cards = {
 
     ita: {
         sorsa : {
             name: 'sorsa',
             list: [
-                'il giocatore X beve due sorse',
+                '{player1} beve due sorse',
+                '{player1} dà due sorse a {player2}',
                 'tutte le ragazze bevono',
             ]
         },
@@ -96,12 +100,18 @@ let cards = {
     },
     
     eng: {
-        standard : {
-            '001': 'player X has to drink two sips',
-            '002': 'every girl has to drink',
+        sorsa : {
+            name: 'sip',
+            list: [
+                `{player1} has to drink two sips`,
+                'every girl has to drink',
+            ]
         },
-        category: {
-            '001': "places where it wuoldn't be nice to show your dick"
+        categoria: {
+            name: 'category',
+            list: [
+                "places where it wuoldn't be nice to show your dick"
+            ]
         }
     }
 }
@@ -143,6 +153,9 @@ let reGame = () => {
     window.location.reload()
 }
 
+
+
+//* Funzioni principali
 let setMode = (mode) => {
     switch (mode) {
         case 'classica':
@@ -261,38 +274,53 @@ let setGame = () => {
 }
 
 let setExtraction = () => {
-    // svuotiamo il placeholder
-    placeHolder.innerHTML = null
+    // estraiamo una tipologia di carta
+    let type = getRandomType()
 
-    // mostriamo il loader
-    loading.classList.remove('hidden')
+    let cardType = cards[langSelected][type]['name']
+    let cardText = cards[langSelected][type]['list'][getRandomCard(type)]
 
-    // estraiamo una carta
-    let card = getRandomCard()
-    let description = setExtractionResponse(card)
+    cardText = replaceWords(cardText);
+    return cardText
 
-    if(playersList.length != 0){
-        if(ind == playersList.length - 1){
-            ind = 0
-        }else{
-            ind += 1
-        }
-    }else{
-        playersList = ['']
-    }
-
+    /*
     if(conteggioK == 0){
         // mostriamo la schermata finale
         setGameFinished(card)
     }else{
         // mostriamo la carta
-        setTimeout(function(){
-            showExtraction(card, description, ind)
-        },500)
+        showExtraction(card, description, ind)
     }
+    */
+}
+
+function replaceWords(cardText) {
+    // giocatore
+    if (cardText.includes('{player1}')) {
+        let player1 = getRandomPlayer()
+        cardText.replace('{player1}', player1);
+
+        if (cardText.includes('{player2}')) {
+            let player2 = getRandomPlayer()
+            cardText.replace('{player2}', player2);
+        }
+    }
+
+    // rima
+
+    // categoria
+
+    // obbligo
+
+    // verità
+
+    return cardText;
 }
 
 let showExtraction = (card, description, ind) => {
+    // svuotiamo il placeholder
+    placeHolder.innerHTML = null
+
     // cloniamo il template
     const extractionElement = extractionTemplate.content.cloneNode(true)
 
@@ -375,12 +403,23 @@ let showCard = () => {
     return response
 }
 
-//* Random functions
-let getRandomPlayer = () => {
+
+
+//* Funzioni random
+let getRandomPlayer = (prevPlayer = null) => {
     let index = Math.floor(Math.random() * players.length)
     let player = players[index]
 
-    return player
+    console.log(player)
+    console.log(prevPlayer)
+
+    // se viene riestratto lo stesso giocatore, ripete la funzione
+    if (player === prevPlayer) {
+        return getRandomPlayer(prevPlayer)
+    } else {
+        return player
+    }
+
 }
 
 let getRandomType = () => {
@@ -392,7 +431,7 @@ let getRandomType = () => {
 
 let getRandomCard = (type) => {
     // estraiamo un numero a caso
-    let index = Math.floor(Math.random() * cards[langSelected][type])
+    let index = Math.floor(Math.random() * cards[langSelected][type]['list'].length)
 
     return index
 }
