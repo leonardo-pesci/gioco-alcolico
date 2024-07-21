@@ -93,7 +93,9 @@ let cards = {
         voto: {
             name: 'voto',
             description: '',
-            list: [],
+            list: [
+                'votate {voto}, riceverà 3 sorse'
+            ],
         },
         
         scelta: {
@@ -199,7 +201,10 @@ let cards = {
         },
         
         variabili: {
-            voto: [],
+            voto: [
+                'il più bello',
+                'chi verrà arrestato più probabilmente'
+            ],
             
             scelta: [],
             
@@ -825,10 +830,10 @@ let setMode = (mode) => {
                 'voto',
                 'scelta',
                 'regola',
-                'hai mai',
+                'haimai',
                 'categoria',
                 'ruolo',
-                'gioco di parole',
+                'rima',
                 'gioco',
                 'specchio',
                 'sfida',
@@ -842,17 +847,17 @@ let setMode = (mode) => {
                 'voto',
                 'scelta',
                 'regola',
-                'hai mai',
+                'haimai',
                 'categoria',
                 'ruolo',
-                'gioco di parole',
+                'rima',
                 'gioco',
                 'specchio',
                 'sfida',
                 'linguaggio',
                 'duello',
                 'storia',
-                'quanto te la rischi',
+                'quantotelarischi',
             ]
         break
         case 'hot':
@@ -860,13 +865,13 @@ let setMode = (mode) => {
                 'voto',
                 'scelta',
                 'regola',
-                'hai mai',
+                'haimai',
                 'ruolo',
                 'gioco',
                 'specchio',
                 'sfida',
                 'duello',
-                'quanto te la rischi',
+                'quantotelarischi',
                 'obbligo',
                 'verità',
             ]
@@ -877,17 +882,17 @@ let setMode = (mode) => {
                 'voto',
                 'scelta',
                 'regola',
-                'hai mai',
+                'haimai',
                 'categoria',
                 'ruolo',
-                'gioco di parole',
+                'rima',
                 'gioco',
                 'specchio',
                 'sfida',
                 'linguaggio',
                 'duello',
                 'storia',
-                'quanto te la rischi',
+                'quantotelarischi',
             ]
             
         break
@@ -897,10 +902,10 @@ let setMode = (mode) => {
                 'voto',
                 'scelta',
                 'regola',
-                'hai mai',
+                'haimai',
                 'categoria',
                 'ruolo',
-                'gioco di parole',
+                'rima',
                 'gioco',
                 'specchio',
                 'sfida',
@@ -921,17 +926,10 @@ let setMode = (mode) => {
 
 let setGame = () => {
     
-    if (started === false) {
-        // nascondiamo la home
-        document.body.classList.add('gameStarted')
-    } else {
-        placeHolder.innerHTML=''
-        numMazzi.classList.add('hidden')
-        buttons.classList.add('hidden')
-    }
+    settings.classList.add('hidden')
+    typeSelector.classList.add('hidden')
     
-    // mostriamo la schermata dei giocatori
-    menu.classList.remove('hidden')
+
 }
 
 let setExtraction = () => {
@@ -956,6 +954,7 @@ let setExtraction = () => {
 }
 
 function replaceWords(cardText) {
+
     // giocatore
     if (cardText.includes('{player1}')) {
         let player1 = getRandomPlayer()
@@ -967,18 +966,47 @@ function replaceWords(cardText) {
         }
     }
 
-    // rima
-    if (cardText.includes('{rima}')) {
-        let rhyme = getRandomWord('rima')
+    // voto
+    if (cardText.includes('{voto}')) {
+        let voto = getRandomWord('voto')
 
-        cardText = cardText.replace('{rima}', rhyme);
+        cardText = cardText.replace('{voto}', voto);
+    }
+
+    // scelta
+    if (cardText.includes('{scelta}')) {
+        let scelta = getRandomWord('scelta')
+
+        cardText = cardText.replace('{scelta}', scelta);
+    }
+
+    // haimai
+    if (cardText.includes('{haimai}')) {
+        let haimai = getRandomWord('haimai')
+
+        cardText = cardText.replace('{haimai}', haimai);
     }
 
     // categoria
+    if (cardText.includes('{categoria}')) {
+        let categoria = getRandomWord('categoria')
 
-    // obbligo
+        cardText = cardText.replace('{categoria}', categoria);
+    }
 
-    // verità
+    // rima
+    if (cardText.includes('{rima}')) {
+        let rima = getRandomWord('rima')
+
+        cardText = cardText.replace('{rima}', rima);
+    }
+
+    // quantotelarischi
+    if (cardText.includes('{quantotelarischi}')) {
+        let quantotelarischi = getRandomWord('quantotelarischi')
+
+        cardText = cardText.replace('{quantotelarischi}', quantotelarischi);
+    }
 
     return cardText;
 }
@@ -989,9 +1017,6 @@ let showExtraction = (card, description, ind) => {
 
     // cloniamo il template
     const extractionElement = extractionTemplate.content.cloneNode(true)
-
-    //
-    console.log(card)
 
     // lo compiliamo
     extractionElement.querySelector('.conteggioKText').innerHTML = `${conteggioK}K`
@@ -1063,12 +1088,6 @@ let showExtraction = (card, description, ind) => {
     setConteggio()
 }
 
-let showCard = () => {
-    response = selectedLanguage.selectedCategory.selectedId
-
-    return response
-}
-
 
 
 //* Funzioni random
@@ -1133,8 +1152,6 @@ let setGameFinished = () => {
 
 /*
 // estraiamo un giocatore casuale
-    ind = getRandomPlayer(playersList)
-    firstPlayer = players[ind]
 
     if(started === false){
         if(numeroMazzi==2){
@@ -1148,7 +1165,6 @@ let setGameFinished = () => {
         if(started === false){
             setExtraction()
         }else{
-            console.log(memory)
             placeHolder.innerHTML = memory
 
             const memory = memory.cloneNode(true)
@@ -1219,7 +1235,6 @@ confirmButton.addEventListener('click', goMode)
 languages.forEach( (lang) => {
     lang.addEventListener('click', () => {
         let name = lang.id
-        console.log(name)
 
         languages.forEach( (lang) => {
             lang.classList.remove('selected')
