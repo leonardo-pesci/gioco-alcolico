@@ -96,13 +96,13 @@
     cursor: pointer;
 }
 
-.questionMark{
+#guideBtn{
     font-size: 22px;
     line-height: 1.1;
     left: 20px;
 }
 
-.edit{
+#editBtn{
     font-size: 20px;
     line-height: 1.15;
     right: 20px;

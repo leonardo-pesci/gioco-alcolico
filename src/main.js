@@ -1,14 +1,9 @@
 //^========================================================================
 //^                            ELEMENTI
 //^========================================================================
-const card = document.querySelector('.card')
-const startButton = document.querySelector('.startButton')
-const addButton = document.querySelector('.add')
-const confirmButton = document.querySelector('.confirm')
-const errorMessage = document.querySelector('.errorMessage')
-const menu = document.querySelector('.menu')
 
 // * Sections
+const header = document.querySelector('#header')
 const home = document.querySelector('#home')
 const settings = document.querySelector('#settings')
 const mode = document.querySelector('#mode')
@@ -16,18 +11,21 @@ const typeSelector = document.querySelector('#typeSelector')
 const guide = document.querySelector('#guide')
 const placeHolder = document.querySelector('#placeHolder')
 const extractionTemplate = document.querySelector('#extractionTemplate')
-const gameFinishedTemplate = document.querySelector('#gameFinishedTemplate')
+const gameFinishedTemplate = document.querySelector('#gameFinished')
 
+// * Buttons
+const startButton = document.querySelector('#startButton')
+const addButton = document.querySelector('#add')
+const confirmButton = document.querySelector('#confirm')
+const guideBtn = document.querySelector('#guideBtn')
+const editBtn = document.querySelector('#editBtn')
+const playAgain = document.querySelector('#playAgain')
 
-
-const buttons = document.querySelector('.buttons')
-const list = document.querySelector('.list')
-
-
-// lingue
+let playerInput = document.querySelector('#playerInput')
+const card = document.querySelector('.card')
+const playersDisplay = document.querySelector('.playersDisplay')
 const languages = document.querySelectorAll('.language')
 
-const questionMark = document.querySelector('.questionMark')
 
 
 
@@ -43,7 +41,7 @@ let langSelected = 'italiano'
 const langStorage = localStorage.getItem('language')
 if (langStorage) langSelected = JSON.parse(langStorage)
 const lastLanguageElement = document.querySelector('#' + langSelected)
-let gameStared = 0
+let gameStared = false
 
 let types = [
     'sorsa',
@@ -103,130 +101,20 @@ let cards = {
 
 
 //^========================================================================
-//^                              EVENTI
-//^========================================================================
-startButton.addEventListener('click', function(){
-    goSettings()
-    
-    
-})
-
-
-addButton.addEventListener('click', function(){
-    let player = document.querySelector('.player')
-
-    if(player.value != ''){
-        playersList.push(player.value)
-        list.innerHTML+=`<div class='listElement' id='a${index}'>${player.value}<div class='cross' data-num='${index}'>✗</div></div>`
-    }
-    player.value = ''
-    index += 1
-
-    const cross = document.querySelectorAll('.cross')
-    cross.forEach(function(element){
-        element.addEventListener('click', function(){
-            play = playersList[element.dataset.num - 1]
-            listElements = document.querySelectorAll('.listElement')
-            el = document.getElementById(`a${element.dataset.num}`)
-            el.remove()
-
-            for(var i = 0; i < playersList.length; i++){ 
-                if ( playersList[i] === playersList[element.dataset.num - 1]) {
-                  playersList.splice(i, 1); 
-                }
-             }
-        })   
-    })
-})
-
-
-confirmButton.addEventListener('click', function(){
-    // messaggio di errore
-    let player = document.querySelector('.player')
-    if(player.value != ''){
-        setErrorMessage()
-    }else{
-        errorMessage.classList.add('hidden')
-
-        console.log(playersList)
-        // nascondiamo il menu
-        menu.classList.add('hidden')
-
-        // estraiamo un giocatore casuale
-        ind = getRandomPlayer(playersList)
-        firstPlayer = playersList[ind]
-
-        if(started === false){
-            if(numeroMazzi==2){
-                mazzo = mazzo.concat(secondoMazzo)
-                conteggio = 100
-            }else{
-                conteggio = 52
-            }
-        }
-
-        // procediamo con la prima estrazione
-        if(started === false){
-            setExtraction()
-        }else{
-            console.log(memory)
-            placeHolder.innerHTML = memory
-
-            const memory = memory.cloneNode(true)
-            
-            // apertura guida
-            const questionMark = memory.querySelector('.questionMark')
-            const contK = memory.querySelector('.conteggioK')
-            
-            questionMark.addEventListener('click', function(){
-                const guide = document.querySelector('.guide')
-
-                guide.classList.remove('hidden')
-                questionMark.classList.add('hidden')
-                edit.classList.add('hidden')
-                contK.classList.add('hidden')
-
-                // chiusura guida
-                const exit = document.querySelector('.exit')
-                exit.addEventListener('click', function(){
-                    guide.classList.add('hidden')
-                    questionMark.classList.remove('hidden')
-                    edit.classList.remove('hidden')
-                    contK.classList.remove('hidden')
-                })
-            })
-
-            // apertura edit
-            const edit = memory.querySelector('.edit')
-            edit.addEventListener('click', function(){
-                setGame()
-            })
-        }
-
-        started = true
-    }
-})
-
-languages.forEach( (lang) => {
-    lang.addEventListener('click', () => {
-        let name = lang.id
-        console.log(name)
-
-        languages.forEach( (lang) => {
-            lang.classList.remove('selected')
-        })
-
-        langSelected = name
-        lang.classList.add('selected')
-        localStorage.setItem('language', JSON.stringify(langSelected))
-    })
-})
-
-
-
-//^========================================================================
 //^                            FUNZIONI
 //^========================================================================
+
+//* Funzioni evento
+let goSettings = () => {
+    home.classList.add('hidden')
+    header.classList.remove('hidden')
+    settings.classList.remove('hidden')
+}
+
+let reGame = () => {
+    window.location.reload()
+}
+
 let setGame = () => {
     
     if(started === false){
@@ -240,10 +128,6 @@ let setGame = () => {
     
     // mostriamo la schermata dei giocatori
     menu.classList.remove('hidden')
-}
-
-let goSettings = () => {
-
 }
 
 let setExtraction = () => {
@@ -361,10 +245,6 @@ let showCard = () => {
     return response
 }
 
-let setErrorMessage = () => {
-    errorMessage.classList.remove('hidden')
-}
-
 //* Random functions
 let getRandomPlayer = (playersList) => {
     // estraiamo un numero a caso
@@ -401,19 +281,123 @@ let setGameFinished = () => {
     // rimpiazziamo il placeHolder
     placeHolder.innerHTML = null
     placeHolder.appendChild(gameFinishedElement)
+}
 
-    // rigioca
-    const rigioca = document.querySelector('.rigioca')
-    rigioca.addEventListener('click', function(){
-        reGame()
+
+/*
+// estraiamo un giocatore casuale
+    ind = getRandomPlayer(playersList)
+    firstPlayer = players[ind]
+
+    if(started === false){
+        if(numeroMazzi==2){
+            mazzo = mazzo.concat(secondoMazzo)
+            conteggio = 100
+        }else{
+            conteggio = 52
+        }
+
+        // procediamo con la prima estrazione
+        if(started === false){
+            setExtraction()
+        }else{
+            console.log(memory)
+            placeHolder.innerHTML = memory
+
+            const memory = memory.cloneNode(true)
+            
+            // apertura guida
+            const questionMark = memory.querySelector('.questionMark')
+            const contK = memory.querySelector('.conteggioK')
+            
+            questionMark.addEventListener('click', () => {
+                const guide = document.querySelector('.guide')
+
+                guide.classList.remove('hidden')
+                questionMark.classList.add('hidden')
+                edit.classList.add('hidden')
+                contK.classList.add('hidden')
+
+                // chiusura guida
+                const exit = document.querySelector('.exit')
+                exit.addEventListener('click', function(){
+                    guide.classList.add('hidden')
+                    questionMark.classList.remove('hidden')
+                    edit.classList.remove('hidden')
+                    contK.classList.remove('hidden')
+                })
+            })
+
+            // apertura edit
+            const edit = memory.querySelector('.edit')
+            edit.addEventListener('click', function(){
+                setGame()
+            })
+        }
+        */
+
+
+
+//^========================================================================
+//^                              EVENTI
+//^========================================================================
+startButton.addEventListener('click', goSettings)
+goSettings() //!
+
+
+addButton.addEventListener('click', () => {
+
+    if(playerInput.value != ''){
+        playersDisplay.innerHTML+=`<div class='listElement' id='a${index}'><span class="listElementText">${playerInput.value}</span><div class='cross' data-num='${index}'>✗</div></div>`
+    }
+    playerInput.value = ''
+    index += 1
+
+    const cross = document.querySelectorAll('.cross')
+    
+    cross.forEach( (element) => {
+        element.addEventListener('click', () => {
+
+            let el = document.querySelector(`#a${element.dataset.num}`)
+            el.remove()
+
+        })   
     })
-}
-
-let reGame = () => {
-    window.location.reload()
-}
+})
 
 
+confirmButton.addEventListener('click', () => {
+
+    // completa la lista
+    const listElements = document.querySelectorAll('.listElementText')
+    
+    listElements.forEach( (player) => {
+        players.push(player.innerText)
+    })
+    
+    if(playerInput.value != '') players.push(playerInput.value)
+
+    // cambia sezione
+    settings.classList.add('hidden')
+    mode.classList.remove('hidden')
+})
+
+languages.forEach( (lang) => {
+    lang.addEventListener('click', () => {
+        let name = lang.id
+        console.log(name)
+
+        languages.forEach( (lang) => {
+            lang.classList.remove('selected')
+        })
+
+        langSelected = name
+        lang.classList.add('selected')
+        localStorage.setItem('language', JSON.stringify(langSelected))
+    })
+})
+
+playAgain.addEventListener('click', reGame)
 
 
 // todo descrizioni lingue

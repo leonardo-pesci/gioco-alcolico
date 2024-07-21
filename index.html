@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="./style/home.css">
     <link rel="stylesheet" href="./style/settings.css">
     <link rel="stylesheet" href="./style/mode.css">
-    <link rel="stylesheet" href="./style/loading.css">
+    <link rel="stylesheet" href="./style/typeselector.css">
     <link rel="stylesheet" href="./style/game.css">
     <link rel="stylesheet" href="./style/guide.css">
     <link rel="stylesheet" href="./style/endgame.css">
@@ -31,18 +31,21 @@
 
 <body>
 
+    <!-- ^ Header -->
+    <header class="hidden" id="header">
+        <h1>Gioco alcolico</h1>
+    </header>
+
+
+
     <!-- ^ Home -->
     <div id="home">
-        
-        <header>
-            <h1>Gioco alcolico</h1>
-        </header>
 
         <div class="principale">
             <div class="logo">
                 <img src="img/logo.png" alt="">
             </div>
-            <button class="startButton">AVVIA</button>
+            <button class="btn1 pointer" id="startButton">AVVIA</button>
         </div>
 
     </div>
@@ -50,30 +53,22 @@
 
     
     <!-- ^ Settings -->
-    <div class="hidden" id="menu">
-        <div class="menuBox">
+    <div class="hidden" id="settings">
             
-            <div class="bar">
-                <input type="text" placeholder="Inserisci il nome del giocatore" name="enter" class="player">
-                <button class="btn add">✚</button>
-                <button class="btn confirm">➤</button>
-            </div>
-
-            <div class="errorMessage hidden">
-                <h4>errore!</h4> <br>
-                <span>clicca prima il pulsante "+"</span>
-            </div>
-
+        <div class="bar">
+            <input type="text" placeholder="Inserisci il nome del giocatore" name="enter" id="playerInput">
+            <button class="btn2 pointer" id="add">✚</button>
+            <button class="btn2 pointer" id="confirm">➤</button>
         </div>
 
-        <div class="playersListDisplay"></div>
+        <div class="playersDisplay"></div>
 
         <div class="languagesBox">
-            <div class="language fitImg selected" id="ita"></div>
-            <div class="language fitImg" id="eng"></div>
-            <div class="language fitImg" id="spa"></div>
-            <div class="language fitImg" id="rom"></div>
-            <div class="language fitImg" id="nap"></div>
+            <div class="language pointer fitImg selected" id="ita"></div>
+            <div class="language pointer fitImg" id="eng"></div>
+            <div class="language pointer fitImg" id="spa"></div>
+            <div class="language pointer fitImg" id="rom"></div>
+            <div class="language pointer fitImg" id="nap"></div>
         </div>
     </div>
 
@@ -119,8 +114,8 @@
             
         </div>
         <div class="buttonContainer">
-            <div class="guideBtn">﹖</div>
-            <div class="editBtn">✎</div>
+            <div class="btn3 pointer" id="guideBtn">﹖</div>
+            <div class="btn3 pointer" id="editBtn">✎</div>
         </div>
         
     </template>
@@ -134,20 +129,20 @@
             
         </div>
     </div>
-k
+
     
 
     <!-- ^ Endgame -->
-    <template id="gameFinishedTemplate">
+    <div class="hidden" id="gameFinished">
 
         <div class="megaBox">
             <div class="box">
                 <div class="emoji">🏆</div> 
                 <h1 class="title"></h1>
-                <button class="rigioca">Rigioca</div>
+                <button class="btn1" id="playAgain">Rigioca</div>
             </div>
         </div>
-    </template>
+    </div>
 
 
     
