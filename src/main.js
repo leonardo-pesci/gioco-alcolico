@@ -96,6 +96,22 @@ let cards = {
             list: [
                 'posti in cui non sarebbe carino tirare fuori il cazzo'
             ]
+        },
+
+        rima: {
+            name: 'rima',
+            list: [
+                'rima con {rima}'
+            ]
+        },
+
+        variabili: {
+            rima: [
+                'notte',
+                'palazzo',
+                'bronzo',
+                'tana',
+            ]
         }
     },
     
@@ -298,15 +314,18 @@ function replaceWords(cardText) {
     // giocatore
     if (cardText.includes('{player1}')) {
         let player1 = getRandomPlayer()
-        cardText.replace('{player1}', player1);
+        cardText = cardText.replace('{player1}', player1);
 
         if (cardText.includes('{player2}')) {
             let player2 = getRandomPlayer()
-            cardText.replace('{player2}', player2);
+            cardText = cardText.replace('{player2}', player2);
         }
     }
 
     // rima
+    if (cardText.includes('{rima}')) {
+        let rhyme = getRandomWord('rhyme')
+    }
 
     // categoria
 
@@ -410,15 +429,16 @@ let getRandomPlayer = (prevPlayer = null) => {
     let index = Math.floor(Math.random() * players.length)
     let player = players[index]
 
-    console.log(player)
-    console.log(prevPlayer)
-
     // se viene riestratto lo stesso giocatore, ripete la funzione
     if (player === prevPlayer) {
         return getRandomPlayer(prevPlayer)
     } else {
         return player
     }
+
+}
+
+let getRandomWord = (word) => {
 
 }
 

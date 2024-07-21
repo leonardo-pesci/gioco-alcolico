@@ -1,20 +1,19 @@
 #modeBox {
-    max-width: 1200px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    align-content: space-between;
+    justify-content: space-evenly;
+    align-content: space-evenly;
     position: absolute;
-    top: 70px;
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
+    top: 50px;
+    bottom: 0;
+    left: 0;
+    right: 0;
     margin: auto;
 }
 
 .modeElement {
-    width: calc(100%/3 - 2.1vw);
-    height: calc(50% - 1.4vw);
+    width: calc(100%/3 - 30px);
+    height: calc(50% - 30px);
     font-size: 18px;
     background-color: limegreen;
     display: flex;
