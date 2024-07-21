@@ -101,19 +101,25 @@ let cards = {
         scelta: {
             name: 'scelta',
             description: '',
-            list: [],
+            list: [
+                'preferireste {scelta}?'
+            ],
         },
         
         regola: {
             name: 'regola',
             description: '',
-            list: [],
+            list: [
+                "d'ora in poi, gli altri dovranno riferirsi a voi con il nome della persona alla vostra destra"
+            ],
         },
         
         haimai: {
             name: 'hai mai',
             description: '',
-            list: [],
+            list: [
+                'due sorse per tutti quelli che hanno chiamato la maestra "mamma"'
+            ],
         },
         
         categoria: {
@@ -127,53 +133,65 @@ let cards = {
         ruolo: {
             name: 'ruolo',
             description: '',
-            list: [],
+            list: [
+                "{player1}, sei il re dei pollici: tutte le volte che vorrai, potrai mettere il pollice sul tavolo e gli altri dovranno seguirti. L'ultimo che lo farà, dovrà bere un sorso"
+            ],
         },
         
         rima: {
             name: 'rima',
             description: '',
             list: [
-                'rima con {rima}'
+                'rima con {rima}',
             ],
         },
         
         gioco: {
             name: 'gioco',
             description: '',
-            list: [],
+            list: [
+                "a turno, ogni giocatore dice una parola; quello dopo la ripete e ne aggiunge un'altra e così per ogni giocatore. Chi sbaglia beve 3 sorse. Inizia {player1}"
+            ],
         },
         
         specchio: {
             name: 'specchio',
             description: '',
-            list: [],
+            list: [
+                '{player1}, sei specchiato con {player2}',
+            ],
         },
         
         sfida: {
             name: 'sfida',
             description: '',
-            list: [],
+            list: [
+                '{player1}, fai 20 piegamenti o bevi 5 sorse',
+            ],
         },
         
         linguaggio: {
             name: 'linguaggio',
             description: '',
-            list: [],
+            list: [
+                'Siete in Russia'
+            ],
         },
         
         duello: {
             name: 'duello',
             description: '',
             list: [
-                'duello tra {player1} e {player2}'
+                'Duello tra {player1} e {player2}: {duello}',
             ],
         },
         
         storia: {
             name: 'storia',
             description: '',
-            list: [],
+            list: [
+                '{player1}, racconta una storia, vera o inventata: alla fine gli altri giocatori daranno un giudizio positivo o negativo, bevi un sorso per ogni giudizio negativo',
+            ],
         },
         
         quantotelarischi: {
@@ -185,30 +203,40 @@ let cards = {
         obbligo: {
             name: 'obbligo',
             description: '',
-            list: [],
+            list: [
+                '{player1}, bacia {player2}'
+            ],
         },
         
         verità: {
             name: 'verità',
             description: '',
-            list: [],
+            list: [
+                '{player1}, chi ti faresti dei presenti?'
+            ],
         },
         
         coppa: {
             name: 'coppa',
             description: '',
-            list: [],
+            list: [
+                '{player1}, versa il contenuto del tuo bicchiere nella coppa'
+            ],
         },
         
         variabili: {
             voto: [
                 'il più bello',
-                'chi verrà arrestato più probabilmente'
+                'chi verrà arrestato più probabilmente',
             ],
             
-            scelta: [],
+            scelta: [
+                'essere invisibili o teletrasportarvi',
+            ],
             
-            haimai: [],
+            haimai: [
+                ''
+            ],
             
             categoria: [],
             
