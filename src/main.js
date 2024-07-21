@@ -1,16 +1,24 @@
-/**========================================================================
- **                            ELEMENTI
- *========================================================================**/
-const loading = document.querySelector('.loading')
+//^========================================================================
+//^                            ELEMENTI
+//^========================================================================
 const card = document.querySelector('.card')
-const placeHolder = document.querySelector('#placeHolder')
-const extractionTemplate = document.querySelector('.extractionTemplate')
-const gameFinishedTemplate = document.querySelector('.gameFinishedTemplate')
 const startButton = document.querySelector('.startButton')
 const addButton = document.querySelector('.add')
 const confirmButton = document.querySelector('.confirm')
 const errorMessage = document.querySelector('.errorMessage')
 const menu = document.querySelector('.menu')
+
+// * Sections
+const home = document.querySelector('#home')
+const settings = document.querySelector('#settings')
+const mode = document.querySelector('#mode')
+const typeSelector = document.querySelector('#typeSelector')
+const guide = document.querySelector('#guide')
+const placeHolder = document.querySelector('#placeHolder')
+const extractionTemplate = document.querySelector('#extractionTemplate')
+const gameFinishedTemplate = document.querySelector('#gameFinishedTemplate')
+
+
 
 const buttons = document.querySelector('.buttons')
 const list = document.querySelector('.list')
@@ -22,23 +30,22 @@ const languages = document.querySelectorAll('.language')
 const questionMark = document.querySelector('.questionMark')
 
 
-let langSelected = 'italiano'
-const langStorage = localStorage.getItem('language')
-if (langStorage) langSelected = JSON.parse(langStorage)
-const lastLanguageElement = document.querySelector('#' + langSelected)
 
 
-
-
-/**========================================================================
- **                            VARIABILI
- *========================================================================**/
+//^========================================================================
+//^                            VARIABILI
+//^========================================================================
 let conteggioK = 4
 let index = 1
 let started = false
 let memory = ''
+let langSelected = 'italiano'
+const langStorage = localStorage.getItem('language')
+if (langStorage) langSelected = JSON.parse(langStorage)
+const lastLanguageElement = document.querySelector('#' + langSelected)
+let gameStared = 0
 
-let type = [
+let types = [
     'sorsa',
     'voto',
     'scelta',
@@ -59,7 +66,7 @@ let type = [
     'coppa',
 ]
 
-let mode = [
+let modes = [
     'classic',
     'hard',
     'free',
@@ -67,8 +74,8 @@ let mode = [
     'cup',
     'custom',
 ]
-    
-let playersList = []
+
+let players = []
 
 let cards = {
 
@@ -95,11 +102,13 @@ let cards = {
 
 
 
-/**========================================================================
- **                            EVENTI
- *========================================================================**/
+//^========================================================================
+//^                              EVENTI
+//^========================================================================
 startButton.addEventListener('click', function(){
-    setGame()
+    goSettings()
+    
+    
 })
 
 
@@ -198,12 +207,27 @@ confirmButton.addEventListener('click', function(){
     }
 })
 
+languages.forEach( (lang) => {
+    lang.addEventListener('click', () => {
+        let name = lang.id
+        console.log(name)
+
+        languages.forEach( (lang) => {
+            lang.classList.remove('selected')
+        })
+
+        langSelected = name
+        lang.classList.add('selected')
+        localStorage.setItem('language', JSON.stringify(langSelected))
+    })
+})
 
 
-/**========================================================================
- **                            FUNZIONI
- *========================================================================**/
-function setGame(){
+
+//^========================================================================
+//^                            FUNZIONI
+//^========================================================================
+let setGame = () => {
     
     if(started === false){
         // nascondiamo la home
@@ -218,7 +242,11 @@ function setGame(){
     menu.classList.remove('hidden')
 }
 
-function setExtraction(){
+let goSettings = () => {
+
+}
+
+let setExtraction = () => {
     // svuotiamo il placeholder
     placeHolder.innerHTML = null
 
@@ -250,7 +278,7 @@ function setExtraction(){
     }
 }
 
-function showExtraction(card, description, ind){
+let showExtraction = (card, description, ind) => {
     // cloniamo il template
     const extractionElement = extractionTemplate.content.cloneNode(true)
 
@@ -333,12 +361,12 @@ let showCard = () => {
     return response
 }
 
-function setErrorMessage(){
+let setErrorMessage = () => {
     errorMessage.classList.remove('hidden')
 }
 
 //* Random functions
-function getRandomPlayer(playersList){
+let getRandomPlayer = (playersList) => {
     // estraiamo un numero a caso
     randomIndex = Math.floor(Math.random() * playersList.length)
 
@@ -346,7 +374,7 @@ function getRandomPlayer(playersList){
     return randomIndex
 }
 
-function getRandomCard(){
+let getRandomCard = () => {
     // estraiamo un numero a caso
     randomIndex = Math.floor(Math.random() * mazzo.length)
 
@@ -361,7 +389,7 @@ function getRandomCard(){
 
 
 //* End game
-function setGameFinished(){
+let setGameFinished = () => {
     // cloniamo il template
     const gameFinishedElement = gameFinishedTemplate.content.cloneNode(true)
 
@@ -381,27 +409,10 @@ function setGameFinished(){
     })
 }
 
-function reGame(){
+let reGame = () => {
     window.location.reload()
 }
 
-
-
-// * Lingue
-languages.forEach( (lang) => {
-    lang.addEventListener('click', () => {
-        let name = lang.id
-        console.log(name)
-
-        languages.forEach( (lang) => {
-            lang.classList.remove('selected')
-        })
-
-        langSelected = name
-        lang.classList.add('selected')
-        localStorage.setItem('language', JSON.stringify(langSelected))
-    })
-})
 
 
 
