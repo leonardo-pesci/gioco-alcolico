@@ -106,30 +106,28 @@
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
     opacity: 0.5;
     cursor: pointer;
 }
 
-.italian{
+#ita{
     background-image: url(./../img/languages/ita.png);
+    background-color: red;
 }
 
-.english{
+#eng{
     background-image: url(./../img/languages/eng.png);
 }
 
-.spanish{
+#spa{
     background-image: url(./../img/languages/spa.png);
 }
 
-.roman{
+#rom{
     background-image: url(./../img/languages/rom.png);
 }
 
-.napolitan{
+#nap{
     background-image: url(./../img/languages/nap.png);
 }
 

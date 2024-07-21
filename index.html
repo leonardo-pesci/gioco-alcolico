@@ -3,15 +3,15 @@
 
 <head>
 
-    <!-- Meta -->
+    <!-- ^ Meta -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Info -->
+    <!-- ^ Info -->
     <title>Gioco alcolico</title>
     <link rel="icon" href="img/logo.png">
 
-    <!-- Style -->
+    <!-- ^ Style -->
     <link rel="stylesheet" href="./style/style.css">
     <link rel="stylesheet" href="./style/home.css">
     <link rel="stylesheet" href="./style/settings.css">
@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="./style/endgame.css">
     <link rel="stylesheet" href="./style/media.css">
     
-    <!-- Font -->
+    <!-- ^ Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ysabeau+SC:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
@@ -31,7 +31,7 @@
 
 <body>
 
-    <!-- Home -->
+    <!-- ^ Home -->
     <div class="home">
         
         <header>
@@ -42,16 +42,14 @@
             <div class="logo">
                 <img src="img/logo.png" alt="">
             </div>
-            <div class="bottone">
-                <button class="startButton">AVVIA</button>
-            </div>
+            <button class="startButton">AVVIA</button>
         </div>
 
     </div>
 
 
     
-    <!-- Settings -->
+    <!-- ^ Settings -->
     <div class="menu hidden">
         <div class="menuBox">
             
@@ -70,35 +68,29 @@
 
         <div class="playersListDisplay"></div>
 
-        <div class="languages">
-            <div class="language italiano selected"></div>
-            <div class="language inglese"></div>
-            <div class="language spagnolo"></div>
-            <div class="language romano"></div>
-            <div class="language napoletano"></div>
+        <div class="languagesBox">
+            <div class="language fitImg selected" id="ita"></div>
+            <div class="language fitImg" id="eng"></div>
+            <div class="language fitImg" id="spa"></div>
+            <div class="language fitImg" id="rom"></div>
+            <div class="language fitImg" id="nap"></div>
         </div>
     </div>
 
 
 
-    <!-- Mode -->
+    <!-- ^ Mode -->
     <div class="mode">
 
     </div>
 
 
 
-    <!-- Loading -->
-    <div class="loading hidden">
-        <div class="contGif">
-            <img src="img/loading.gif" alt="">
-        </div>
-
-    </div>
+    <!-- ^ Typeselector -->
 
 
 
-    <!-- Game -->
+    <!-- ^ Game -->
     <div id="placeHolder"></div>
 
     <template class="extractionTemplate">
@@ -133,7 +125,7 @@
 
 
 
-    <!-- Guide -->
+    <!-- ^ Guide -->
     <div class="guide hidden">
         <div class="exitGuide">✗</div>
         <div class="guideBox">
@@ -143,7 +135,7 @@
 
     
 
-    <!-- Endgame -->
+    <!-- ^ Endgame -->
     <template class="gameFinishedTemplate">
 
         <div class="megaBox">
@@ -155,6 +147,9 @@
         </div>
     </template>
 
+
+    
+    <!-- ^ Script -->
     <script src="./src/main.js"></script>
 </body>
 </html>
