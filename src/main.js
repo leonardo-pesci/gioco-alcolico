@@ -49,7 +49,7 @@ let types = [
     'voto',
     'scelta',
     'regola',
-    'hai mai',
+    'haimai',
     'categoria',
     'ruolo',
     'rima',
@@ -59,7 +59,7 @@ let types = [
     'linguaggio',
     'duello',
     'storia',
-    'quanto te la rischi',
+    'quantotelarischi',
     'obbligo',
     'verità',
     'coppa',
@@ -77,104 +77,125 @@ let modes = [
 let players = []
 
 //!
-types = ['sorsa', 'categoria', 'rima']
 players = ['leo', 'emme']
 
 let cards = {
     ita: {
         sorsa: {
             name: 'sorsa',
+            description: '',
             list: [
-                `{giocatore1} beve due sorse`,
-                'tutte le ragazze bevono'
-            ]
+                '{player1} beve due sorse',
+                'tutte le ragazze bevono',
+            ],
         },
         
         voto: {
             name: 'voto',
-            list: []
+            description: '',
+            list: [],
         },
         
         scelta: {
             name: 'scelta',
-            list: []
+            description: '',
+            list: [],
         },
         
         regola: {
             name: 'regola',
-            list: []
+            description: '',
+            list: [],
         },
         
         haimai: {
             name: 'hai mai',
-            list: []
+            description: '',
+            list: [],
         },
         
         categoria: {
             name: 'categoria',
+            description: '',
             list: [
-                'posti in cui non sarebbe carino tirare fuori il cazzo'
-            ]
+                'posti in cui non sarebbe carino tirare fuori il cazzo',
+            ],
         },
         
         ruolo: {
             name: 'ruolo',
-            list: []
+            description: '',
+            list: [],
         },
         
         rima: {
             name: 'rima',
-            list: []
+            description: '',
+            list: [
+                'rima con {rima}'
+            ],
         },
         
         gioco: {
             name: 'gioco',
-            list: []
+            description: '',
+            list: [],
         },
         
         specchio: {
             name: 'specchio',
-            list: []
+            description: '',
+            list: [],
         },
         
         sfida: {
             name: 'sfida',
-            list: []
+            description: '',
+            list: [],
         },
         
         linguaggio: {
             name: 'linguaggio',
-            list: []
+            description: '',
+            list: [],
         },
         
         duello: {
             name: 'duello',
-            list: []
+            description: '',
+            list: [
+                'duello tra {player1} e {player2}'
+            ],
         },
         
         storia: {
             name: 'storia',
-            list: []
+            description: '',
+            list: [],
         },
         
         quantotelarischi: {
             name: 'quanto te la rischi',
-            list: []
+            description: '',
+            list: [],
         },
         
         obbligo: {
             name: 'obbligo',
-            list: []
+            description: '',
+            list: [],
         },
         
-        verita: {
+        verità: {
             name: 'verità',
-            list: []
+            description: '',
+            list: [],
         },
         
         coppa: {
             name: 'coppa',
-            list: []
+            description: '',
+            list: [],
         },
         
         variabili: {
@@ -186,106 +207,134 @@ let cards = {
             
             categoria: [],
             
-            rima: [],
+            rima: [
+                'palazzo',
+                'bronzo',
+                'biga',
+                'tana',
+            ],
             
-            quantotelarischi: []
-        }
+            quantotelarischi: [],
+        },
     },
     
     eng: {
         sorsa: {
             name: 'sip',
+            description: '',
             list: [
-                `{giocatore1} has to drink two sips`,
-                'every girl has to drink'
-            ]
+                '{player1} has to drink two sips',
+                'every girl has to drink',
+            ],
         },
         
         voto: {
             name: 'vote',
-            list: []
+            description: '',
+            list: [],
         },
         
         scelta: {
             name: 'choice',
-            list: []
+            description: '',
+            list: [],
         },
         
         regola: {
             name: 'rule',
-            list: []
+            description: '',
+            list: [],
         },
         
         haimai: {
             name: 'never have I ever',
-            list: []
+            description: '',
+            list: [],
         },
         
         categoria: {
             name: 'category',
+            description: '',
             list: [
-                "places where it wouldn't be nice to show your dick"
-            ]
+                "places where it wouldn't be nice to show your dick",
+            ],
         },
         
         ruolo: {
             name: 'role',
-            list: []
+            description: '',
+            list: [],
         },
         
         rima: {
             name: 'rhyme',
-            list: []
+            description: '',
+            list: [
+                'ball',
+                'call',
+                'stall',
+                'mall',
+            ],
         },
         
         gioco: {
             name: 'game',
-            list: []
+            description: '',
+            list: [],
         },
         
         specchio: {
             name: 'mirror',
-            list: []
+            description: '',
+            list: [],
         },
         
         sfida: {
             name: 'challenge',
-            list: []
+            description: '',
+            list: [],
         },
         
         linguaggio: {
             name: 'language',
-            list: []
+            description: '',
+            list: [],
         },
         
         duello: {
             name: 'duel',
-            list: []
+            description: '',
+            list: [],
         },
         
         storia: {
             name: 'story',
-            list: []
+            description: '',
+            list: [],
         },
         
         quantotelarischi: {
             name: 'how much you risk it',
-            list: []
+            description: '',
+            list: [],
         },
         
         obbligo: {
             name: 'dare',
-            list: []
+            description: '',
+            list: [],
         },
         
-        verita: {
+        verità: {
             name: 'truth',
-            list: []
+            description: '',
+            list: [],
         },
         
         coppa: {
             name: 'cup',
-            list: []
+            description: '',
+            list: [],
         },
         
         variabili: {
@@ -297,106 +346,134 @@ let cards = {
             
             categoria: [],
             
-            rima: [],
+            rima: [
+                'ball',
+                'call',
+                'stall',
+                'mall',
+            ],
             
-            quantotelarischi: []
-        }
+            quantotelarischi: [],
+        },
     },
     
     spa: {
         sorsa: {
             name: 'sorbo',
+            description: '',
             list: [
-                `{giocatore1} bebe dos sorbos`,
-                'todas las chicas beben'
-            ]
+                '{player1} bebe dos sorbos',
+                'todas las chicas beben',
+            ],
         },
         
         voto: {
             name: 'voto',
-            list: []
+            description: '',
+            list: [],
         },
         
         scelta: {
             name: 'elección',
-            list: []
+            description: '',
+            list: [],
         },
         
         regola: {
             name: 'regla',
-            list: []
+            description: '',
+            list: [],
         },
         
         haimai: {
             name: 'yo nunca',
-            list: []
+            description: '',
+            list: [],
         },
         
         categoria: {
             name: 'categoría',
+            description: '',
             list: [
-                'lugares donde no sería agradable mostrar tu pene'
-            ]
+                'lugares donde no sería agradable mostrar tu pene',
+            ],
         },
         
         ruolo: {
             name: 'rol',
-            list: []
+            description: '',
+            list: [],
         },
         
         rima: {
             name: 'rima',
-            list: []
+            description: '',
+            list: [
+                'bola',
+                'cola',
+                'olla',
+                'silla',
+            ],
         },
         
         gioco: {
             name: 'juego',
-            list: []
+            description: '',
+            list: [],
         },
         
         specchio: {
             name: 'espejo',
-            list: []
+            description: '',
+            list: [],
         },
         
         sfida: {
             name: 'desafío',
-            list: []
+            description: '',
+            list: [],
         },
         
         linguaggio: {
             name: 'lenguaje',
-            list: []
+            description: '',
+            list: [],
         },
         
         duello: {
             name: 'duelo',
-            list: []
+            description: '',
+            list: [],
         },
         
         storia: {
             name: 'historia',
-            list: []
+            description: '',
+            list: [],
         },
         
         quantotelarischi: {
             name: 'cuánto te arriesgas',
-            list: []
+            description: '',
+            list: [],
         },
         
         obbligo: {
             name: 'obligación',
-            list: []
+            description: '',
+            list: [],
         },
         
-        verita: {
+        verità: {
             name: 'verdad',
-            list: []
+            description: '',
+            list: [],
         },
         
         coppa: {
             name: 'copa',
-            list: []
+            description: '',
+            list: [],
         },
         
         variabili: {
@@ -408,106 +485,134 @@ let cards = {
             
             categoria: [],
             
-            rima: [],
+            rima: [
+                'bola',
+                'cola',
+                'olla',
+                'silla',
+            ],
             
-            quantotelarischi: []
-        }
+            quantotelarischi: [],
+        },
     },
     
     rom: {
         sorsa: {
             name: 'sorso',
+            description: '',
             list: [
-                `{giocatore1} beve due sorsi`,
-                'tutte le ragazze bevono'
-            ]
+                '{player1} beve due sorsi',
+                'tutte le ragazze bevono',
+            ],
         },
         
         voto: {
             name: 'voto',
-            list: []
+            description: '',
+            list: [],
         },
         
         scelta: {
             name: 'scelta',
-            list: []
+            description: '',
+            list: [],
         },
         
         regola: {
             name: 'regola',
-            list: []
+            description: '',
+            list: [],
         },
         
         haimai: {
             name: 'mai fatto',
-            list: []
+            description: '',
+            list: [],
         },
         
         categoria: {
             name: 'categoria',
+            description: '',
             list: [
-                'posti dove nun sarebbe carino tirà fori er cazzo'
-            ]
+                'posti dove nun sarebbe carino tirà fori er cazzo',
+            ],
         },
         
         ruolo: {
             name: 'ruolo',
-            list: []
+            description: '',
+            list: [],
         },
         
         rima: {
             name: 'rima',
-            list: []
+            description: '',
+            list: [
+                'palla',
+                'gallo',
+                'ballo',
+                'stallo',
+            ],
         },
         
         gioco: {
             name: 'gioco',
-            list: []
+            description: '',
+            list: [],
         },
         
         specchio: {
             name: 'specchio',
-            list: []
+            description: '',
+            list: [],
         },
         
         sfida: {
             name: 'sfida',
-            list: []
+            description: '',
+            list: [],
         },
         
         linguaggio: {
             name: 'linguaggio',
-            list: []
+            description: '',
+            list: [],
         },
         
         duello: {
             name: 'duello',
-            list: []
+            description: '',
+            list: [],
         },
         
         storia: {
             name: 'storia',
-            list: []
+            description: '',
+            list: [],
         },
         
         quantotelarischi: {
-            name: 'quanto te la rischi',
-            list: []
+            name: 'quanto te rischi',
+            description: '',
+            list: [],
         },
         
         obbligo: {
             name: 'obbligo',
-            list: []
+            description: '',
+            list: [],
         },
         
-        verita: {
+        verità: {
             name: 'verità',
-            list: []
+            description: '',
+            list: [],
         },
         
         coppa: {
             name: 'coppa',
-            list: []
+            description: '',
+            list: [],
         },
         
         variabili: {
@@ -519,106 +624,134 @@ let cards = {
             
             categoria: [],
             
-            rima: [],
+            rima: [
+                'palla',
+                'gallo',
+                'ballo',
+                'stallo',
+            ],
             
-            quantotelarischi: []
-        }
+            quantotelarischi: [],
+        },
     },
     
     nap: {
         sorsa: {
             name: 'sorsa',
+            description: '',
             list: [
-                `{giocatore1} se beve doie sorsi`,
-                'tutte e femmene bevono'
-            ]
+                '{player1} beve doje sorsi',
+                'tutte e’ femmene bevono',
+            ],
         },
         
         voto: {
             name: 'voto',
-            list: []
+            description: '',
+            list: [],
         },
         
         scelta: {
             name: 'scelta',
-            list: []
+            description: '',
+            list: [],
         },
         
         regola: {
             name: 'regola',
-            list: []
+            description: '',
+            list: [],
         },
         
         haimai: {
-            name: 'mmai fatto',
-            list: []
+            name: 'mai fatto',
+            description: '',
+            list: [],
         },
         
         categoria: {
             name: 'categoria',
+            description: '',
             list: [
-                'posti addó nun sarebbe bello fa vedè o cazzo'
-            ]
+                'posti addò nun sarebbe buono tirà fora o cazzo',
+            ],
         },
         
         ruolo: {
             name: 'ruolo',
-            list: []
+            description: '',
+            list: [],
         },
         
         rima: {
             name: 'rima',
-            list: []
+            description: '',
+            list: [
+                'palla',
+                'gallo',
+                'ballo',
+                'stallo',
+            ],
         },
         
         gioco: {
             name: 'gioco',
-            list: []
+            description: '',
+            list: [],
         },
         
         specchio: {
             name: 'specchio',
-            list: []
+            description: '',
+            list: [],
         },
         
         sfida: {
             name: 'sfida',
-            list: []
+            description: '',
+            list: [],
         },
         
         linguaggio: {
             name: 'linguaggio',
-            list: []
+            description: '',
+            list: [],
         },
         
         duello: {
             name: 'duello',
-            list: []
+            description: '',
+            list: [],
         },
         
         storia: {
             name: 'storia',
-            list: []
+            description: '',
+            list: [],
         },
         
         quantotelarischi: {
-            name: 'quanto te la rischi',
-            list: []
+            name: 'quanto te rischi',
+            description: '',
+            list: [],
         },
         
         obbligo: {
             name: 'obbligo',
-            list: []
+            description: '',
+            list: [],
         },
         
-        verita: {
+        verità: {
             name: 'verità',
-            list: []
+            description: '',
+            list: [],
         },
         
         coppa: {
             name: 'coppa',
-            list: []
+            description: '',
+            list: [],
         },
         
         variabili: {
@@ -630,12 +763,18 @@ let cards = {
             
             categoria: [],
             
-            rima: [],
+            rima: [
+                'palla',
+                'gallo',
+                'ballo',
+                'stallo',
+            ],
             
-            quantotelarischi: []
-        }
+            quantotelarischi: [],
+        },
     }
 };
+
 
 
 
