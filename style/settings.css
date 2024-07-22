@@ -1,3 +1,7 @@
+#settings {
+    z-index: 1;
+}
+
 .bar{
     display: flex;
     justify-content: center;
@@ -55,7 +59,7 @@
     justify-content: center;
     gap: 10px;
     margin-top: 60px;
-    position: fixed;
+    position: absolute;
     bottom: 15px;
 }
 
@@ -68,7 +72,6 @@
 
 #ita{
     background-image: url(./../img/languages/ita.png);
-    background-color: red;
 }
 
 #eng{

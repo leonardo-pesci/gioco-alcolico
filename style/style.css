@@ -9,21 +9,20 @@
     --color-text: #000000;
 }
 
-html {
+body {
     width: 100vw;
     height: 100vh;
+    font-size: 16px;
     font-family: 'Ysabeau SC', sans-serif;
-    color: black;
-    /* background-image: url(img/bg.jpg); */
-    background-color: blanchedalmond; /* ! */
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
     font-weight: 400;
+    color: black;
+    background-color: blanchedalmond; /* ! */
     text-align: center;
+    position: fixed;
 }
 
 #header {
+    width: 100vw;
     height: 50px;
     margin: 0;
 }

@@ -8,7 +8,6 @@ const home = document.querySelector('#home')
 const settings = document.querySelector('#settings')
 const mode = document.querySelector('#mode')
 const typeSelector = document.querySelector('#typeSelector')
-const guide = document.querySelector('#guide')
 const placeHolder = document.querySelector('#placeHolder')
 const extractionTemplate = document.querySelector('#extractionTemplate')
 const gameFinishedTemplate = document.querySelector('#gameFinished')
@@ -17,8 +16,6 @@ const gameFinishedTemplate = document.querySelector('#gameFinished')
 const startButton = document.querySelector('#startButton')
 const addButton = document.querySelector('#add')
 const confirmButton = document.querySelector('#confirm')
-const guideBtn = document.querySelector('#guideBtn')
-const editBtn = document.querySelector('#editBtn')
 const playAgain = document.querySelector('#playAgain')
 const modeElements = document.querySelectorAll('.modeElement')
 
@@ -65,6 +62,7 @@ let types = [
     'obbligo',
     'verità',
     'coppa',
+    'missionesegreta',
 ]
 
 let modes = [
@@ -89,6 +87,8 @@ let cards = {
             list: [
                 '{player1} beve due sorse',
                 'Tutte le ragazze bevono',
+                'Tutti i ragazzi bevono',
+                'Tutti bevono',
             ],
         },
         
@@ -104,7 +104,8 @@ let cards = {
             name: 'scelta',
             description: '',
             list: [
-                'Preferireste {scelta}? Votate insieme, il gruppo in minoranza beve 2 sorse'
+                'Preferireste {scelta}? Votate insieme, il gruppo in minoranza beve 2 sorse',
+                ''
             ],
         },
         
@@ -167,7 +168,6 @@ let cards = {
             description: '',
             list: [
                 "{player1}, mima qualcosa",
-                "{player1}, mima {mimo}",
             ],
         },
         
@@ -270,11 +270,6 @@ let cards = {
                 'bronzo',
                 'biga',
                 'tana',
-            ],
-
-            mimo: [
-                'una barca',
-                'un mendicante'
             ],
 
             sfida: [
@@ -865,7 +860,7 @@ let goSettings = () => {
     home.classList.add('hidden')
     header.classList.remove('hidden')
     settings.classList.remove('hidden')
-}
+} // ? mostra la schermata impostazioni
 
 let goMode = () => {
     // completa la lista
@@ -885,6 +880,14 @@ let goMode = () => {
 let goTypeSelector = () => {
     mode.classList.add('hidden')
     typeSelector.classList.remove('hidden')
+}
+
+let startGame = () => {
+    gameStared = true
+    mode.classList.add('hidden')
+    typeSelector.classList.add('hidden')
+
+    setExtraction()
 }
 
 let reGame = () => {
@@ -907,12 +910,17 @@ let setMode = (mode) => {
                 'ruolo',
                 'rima',
                 'gioco',
+                'mimo',
                 'specchio',
                 'sfida',
                 'linguaggio',
                 'duello',
+                'quantotelarischi',
+                'missionesegreta',
             ]
-        break
+            startGame()
+            break
+
         case 'difficile':
             types = [
                 'sorsa',
@@ -930,24 +938,27 @@ let setMode = (mode) => {
                 'duello',
                 'storia',
                 'quantotelarischi',
+                'missionesegreta',
             ]
-        break
+            startGame()
+            break
+
         case 'hot':
             types = [
                 'voto',
-                'scelta',
-                'regola',
                 'haimai',
-                'ruolo',
                 'gioco',
                 'specchio',
                 'sfida',
-                'duello',
+                'storia',
                 'quantotelarischi',
                 'obbligo',
                 'verità',
+                'missionesegreta',
             ]
-        break
+            startGame()
+            break
+
         case 'creativa':
             types = [
                 'sorsa',
@@ -966,8 +977,9 @@ let setMode = (mode) => {
                 'storia',
                 'quantotelarischi',
             ]
-            
-        break
+            startGame()
+            break
+
         case 'coppa':
             types = [
                 'sorsa',
@@ -986,19 +998,13 @@ let setMode = (mode) => {
                 'storia',
                 'coppa',
             ]
-
-        break
+            startGame()
+            break
         case 'personalizzata':
             types = []
             goTypeSelector()
         break
     }
-
-}
-
-let setGame = () => {
-    settings.classList.add('hidden')
-    typeSelector.classList.add('hidden')
 }
 
 let setExtraction = () => {
@@ -1011,8 +1017,8 @@ let setExtraction = () => {
     let cardDescription = object['description']
 
     cardText = replaceWords(cardText);
-    return cardText
 
+    showExtraction(cardType, cardText, cardDescription);
     /*
     if(conteggioK == 0){
         // mostriamo la schermata finale
@@ -1072,59 +1078,57 @@ function replaceWords(cardText) {
         cardText = cardText.replace('{quantotelarischi}', quantotelarischi);
     }
 
-    return cardText;
+    return cardText
 }
 
-let showExtraction = (card, description, ind) => {
-    // svuotiamo il placeholder
+let showExtraction = (type, text, description) => {
+
+    // svuota il placeholder
     placeHolder.innerHTML = null
 
-    // cloniamo il template
-    const extractionElement = extractionTemplate.content.cloneNode(true)
+    // copia il template e lo compila
+    const template = extractionTemplate.content.cloneNode(true)
 
-    // lo compiliamo
-    extractionElement.querySelector('.conteggioKText').innerHTML = `${conteggioK}K`
+    // template.querySelector('.conteggioKText').innerHTML = `${conteggioK}K`
+
+    // inserisce tipo, testo ed immagine
+    let gameBox = template.querySelector('#gameBox')
+    let cardInfo = template.querySelector('#cardInfo')
+    gameBox.style = `background-color: #eeeeee`
+    template.querySelector('#cardType').innerHTML = `<span id="">${type}</span>`
+    template.querySelector('#cardText').innerHTML = `<span id="">${text}</span>`
+
+    // aggiunge l'evento per estrarre la prossima carta
+    gameBox.addEventListener('click', (event) => {
+
+        if (!(guideBtn.contains(event.target) || editBtn.contains(event.target))) {
+            setExtraction();
+        }
+    })
     
+    const guideBtn = template.querySelector('#guideBtn')
+    const editBtn = template.querySelector('#editBtn')
+    const guide = template.querySelector('#guide')
 
-    extractionElement.querySelector('.cardImage').innerHTML = image
-    extractionElement.querySelector('.extractionText').innerText = description
-    extractionElement.querySelector('.playerName').innerText = playersList[ind]
-
-
-
-    // apertura guida
-    const questionMark = extractionElement.querySelector('.questionMark')
-    const contK = extractionElement.querySelector('.conteggioK')
-    
-    questionMark.addEventListener('click', function(){
-        const guide = document.querySelector('.guide')
-
+    // guida
+    guideBtn.addEventListener('click', () => {
+        
         guide.classList.remove('hidden')
-        questionMark.classList.add('hidden')
-        edit.classList.add('hidden')
-        contK.classList.add('hidden')
+        
+        const exit = document.querySelector('#guideExit')
 
-        // chiusura guida
-        const exit = document.querySelector('.exit')
-        exit.addEventListener('click', function(){
+        exit.addEventListener('click', () => {
             guide.classList.add('hidden')
-            questionMark.classList.remove('hidden')
-            edit.classList.remove('hidden')
-            contK.classList.remove('hidden')
         })
     })
-
+    
     // apertura edit
-    const edit = extractionElement.querySelector('.edit')
-    const editPage = document.querySelector('.editPage')
 
-    edit.addEventListener('click', function(){
-        editPage.classList.remove('hidden')
-        questionMark.classList.add('hidden')
-        edit.classList.add('hidden')
-        contK.classList.add('hidden')
+    editBtn.addEventListener('click', () => {
+        settings.classList.remove('hidden')
 
         // chiusura edit
+        /*
         const exitEdit = document.querySelector('.exitEdit')
         exitEdit.addEventListener('click', function(){
             editPage.classList.add('hidden')
@@ -1132,23 +1136,11 @@ let showExtraction = (card, description, ind) => {
             edit.classList.remove('hidden')
             contK.classList.remove('hidden')
         })
+        */
     })
-
-    // nascondiamo il loader
-    loading.classList.add('hidden')
-
-    // mostriamo il template
-    placeHolder.appendChild(extractionElement)
-
-    // copiamo il placeHolder
-    memory = placeHolder.innerHTML
-
-    // mostriamo il pulsante next
-    const nextButton = document.querySelector('.next')
-
-    nextButton.addEventListener('click', function(){
-        setExtraction()
-    })
+    
+    // mostra il template
+    placeHolder.appendChild(template)
 }
 
 
@@ -1322,10 +1314,18 @@ playAgain.addEventListener('click', reGame)
 
 // todo edit
 // todo quando finiscono le rime
-// todo aggiungi mimo e missione segreta
+// todo aggiungi mimo e missione segreta a tutte le lingue
 // todo modifica le variabili all'interno della funzione replaceWord(variable)
 // todo gestisci le diverse modalità
+// todo metti a display la carta
 // todo modifica le tipologie all'interno delle diverse modalità
 // todo salva l'ultima lingua selezionata
 // todo aggiungi tutti i focus
 // todo aggiungi l'evento conferma per aggiungere un giocatore
+// todo edit settings
+// todo aggiungi grafiche emme
+// todo aggiungi i ringraziamenti
+// todo rimuovi effetto di determinate carte
+// todo gestisci le probabilità di uscita di diverse tipologie
+// todo carte standard per modalità creativa
+// todo crea pagina typeselector
