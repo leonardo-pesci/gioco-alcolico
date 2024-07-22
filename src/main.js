@@ -13,10 +13,10 @@ const extractionTemplate = document.querySelector('#extractionTemplate')
 const gameFinishedTemplate = document.querySelector('#gameFinished')
 
 // * Buttons
-const startButton = document.querySelector('#startButton')
-const addButton = document.querySelector('#add')
-const confirmButton = document.querySelector('#confirm')
-const playAgain = document.querySelector('#playAgain')
+const startBtn = document.querySelector('#startBtn')
+const addBtn = document.querySelector('#add')
+const confirmBtn = document.querySelector('#confirm')
+const playAgainBtn = document.querySelector('#playAgainBtn')
 const modeElements = document.querySelectorAll('.modeElement')
 
 let playerInput = document.querySelector('#playerInput')
@@ -860,18 +860,55 @@ let goSettings = () => {
     home.classList.add('hidden')
     header.classList.remove('hidden')
     settings.classList.remove('hidden')
+    playerInput.focus()
+
+    document.addEventListener('keydown', onEnterPressed)
+
 } // ? mostra la schermata impostazioni
 
-let goMode = () => {
+let addBtnEvent = () => {
+    if(playerInput.value != ''){
+        playersDisplay.innerHTML+=`<div class='listElement' id='a${index}'><span class="listElementText">${playerInput.value}</span><div class='cross' data-num='${index}'>✗</div></div>`
+    }
+    playerInput.value = ''
+    index += 1
+
+    const cross = document.querySelectorAll('.cross')
+    
+    cross.forEach( (element) => {
+        element.addEventListener('click', () => {
+
+            let el = document.querySelector(`#a${element.dataset.num}`)
+            el.remove()
+
+        })   
+    })
+
+    playerInput.focus()
+}
+
+let confirmBtnEvent = () => {
     // completa la lista
     const listElements = document.querySelectorAll('.listElementText')
     
-    listElements.forEach( (player) => {
+    listElements.forEach ( (player) => {
         players.push(player.innerText)
     })
     
-    if(playerInput.value != '') players.push(playerInput.value)
+    if (playerInput.value != '') players.push(playerInput.value)
 
+    goMode()
+
+    document.removeEventListener('keydown', onEnterPressed)
+}
+
+let onEnterPressed = (event) => {
+    if (event.key === 'Enter') {
+        addBtnEvent();
+    }
+}
+
+let goMode = () => {
     // cambia sezione
     settings.classList.add('hidden')
     mode.classList.remove('hidden')
@@ -1126,6 +1163,7 @@ let showExtraction = (type, text, description) => {
 
     editBtn.addEventListener('click', () => {
         settings.classList.remove('hidden')
+        console.log(settings)
 
         // chiusura edit
         /*
@@ -1258,32 +1296,15 @@ let setGameFinished = () => {
 //^========================================================================
 //^                              EVENTI
 //^========================================================================
-startButton.addEventListener('click', goSettings)
+startBtn.addEventListener('click', goSettings)
 goSettings() //!
 goMode() //!
+startGame() //!
 
 
-addButton.addEventListener('click', () => {
+addBtn.addEventListener('click', addBtnEvent)
 
-    if(playerInput.value != ''){
-        playersDisplay.innerHTML+=`<div class='listElement' id='a${index}'><span class="listElementText">${playerInput.value}</span><div class='cross' data-num='${index}'>✗</div></div>`
-    }
-    playerInput.value = ''
-    index += 1
-
-    const cross = document.querySelectorAll('.cross')
-    
-    cross.forEach( (element) => {
-        element.addEventListener('click', () => {
-
-            let el = document.querySelector(`#a${element.dataset.num}`)
-            el.remove()
-
-        })   
-    })
-})
-
-confirmButton.addEventListener('click', goMode)
+confirmBtn.addEventListener('click', confirmBtnEvent)
 
 languages.forEach( (lang) => {
     lang.addEventListener('click', () => {
@@ -1309,7 +1330,7 @@ modeElements.forEach( (modeElement) => {
     })
 })
 
-playAgain.addEventListener('click', reGame)
+playAgainBtn.addEventListener('click', reGame)
 
 
 // todo edit
@@ -1329,3 +1350,4 @@ playAgain.addEventListener('click', reGame)
 // todo gestisci le probabilità di uscita di diverse tipologie
 // todo carte standard per modalità creativa
 // todo crea pagina typeselector
+// todo sistema icone romano e napoletano
