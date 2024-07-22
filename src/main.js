@@ -43,6 +43,7 @@ const langStorage = localStorage.getItem('language')
 if (langStorage) langSelected = JSON.parse(langStorage)
 const lastLanguageElement = document.querySelector('#' + langSelected)
 let gameStared = false
+let index = 0
 
 let types = [
     'sorsa',
@@ -1003,9 +1004,11 @@ let setGame = () => {
 let setExtraction = () => {
     // estraiamo una tipologia di carta
     let type = getRandomType()
+    let object = cards[langSelected][type]
 
-    let cardType = cards[langSelected][type]['name']
-    let cardText = cards[langSelected][type]['list'][getRandomCard(type)]
+    let cardType = object['name']
+    let cardText = object['list'][getRandomCard(type)]
+    let cardDescription = object['description']
 
     cardText = replaceWords(cardText);
     return cardText
@@ -1288,7 +1291,6 @@ addButton.addEventListener('click', () => {
     })
 })
 
-
 confirmButton.addEventListener('click', goMode)
 
 languages.forEach( (lang) => {
@@ -1324,3 +1326,6 @@ playAgain.addEventListener('click', reGame)
 // todo modifica le variabili all'interno della funzione replaceWord(variable)
 // todo gestisci le diverse modalità
 // todo modifica le tipologie all'interno delle diverse modalità
+// todo salva l'ultima lingua selezionata
+// todo aggiungi tutti i focus
+// todo aggiungi l'evento conferma per aggiungere un giocatore
