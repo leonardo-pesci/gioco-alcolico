@@ -54,6 +54,7 @@ let types = [
     'ruolo',
     'rima',
     'gioco',
+    'mimo',
     'specchio',
     'sfida',
     'linguaggio',
@@ -86,7 +87,7 @@ let cards = {
             description: '',
             list: [
                 '{player1} beve due sorse',
-                'tutte le ragazze bevono',
+                'Tutte le ragazze bevono',
             ],
         },
         
@@ -94,7 +95,7 @@ let cards = {
             name: 'voto',
             description: '',
             list: [
-                'votate {voto}, riceverà 3 sorse'
+                'Votate {voto}, riceverà 3 sorse'
             ],
         },
         
@@ -102,7 +103,7 @@ let cards = {
             name: 'scelta',
             description: '',
             list: [
-                'preferireste {scelta}?'
+                'Preferireste {scelta}? Votate insieme, il gruppo in minoranza beve 2 sorse'
             ],
         },
         
@@ -110,7 +111,8 @@ let cards = {
             name: 'regola',
             description: '',
             list: [
-                "d'ora in poi, gli altri dovranno riferirsi a voi con il nome della persona alla vostra destra"
+                "Inventa una regola",
+                "D'ora in poi, gli altri dovranno riferirsi a voi con il nome della persona alla vostra destra"
             ],
         },
         
@@ -118,7 +120,9 @@ let cards = {
             name: 'hai mai',
             description: '',
             list: [
-                'due sorse per tutti quelli che hanno chiamato la maestra "mamma"'
+                "Hai mai... inventa tu, chi l'ha fatto beve due sorse",
+                'Due sorse per tutti quelli che hanno chiamato la maestra "mamma"',
+                'Bevi una sorsa se hai avuto esperienze con persone del tuo stesso sesso',
             ],
         },
         
@@ -126,7 +130,8 @@ let cards = {
             name: 'categoria',
             description: '',
             list: [
-                'posti in cui non sarebbe carino tirare fuori il cazzo',
+                'Inventa una categoria',
+                'Posti in cui non sarebbe carino tirare fuori il cazzo',
             ],
         },
         
@@ -134,6 +139,7 @@ let cards = {
             name: 'ruolo',
             description: '',
             list: [
+                'Inventa un nuovo ruolo',
                 "{player1}, sei il re dei pollici: tutte le volte che vorrai, potrai mettere il pollice sul tavolo e gli altri dovranno seguirti. L'ultimo che lo farà, dovrà bere un sorso"
             ],
         },
@@ -142,7 +148,8 @@ let cards = {
             name: 'rima',
             description: '',
             list: [
-                'rima con {rima}',
+                'Rima con... (scegli tu la parola)',
+                'Rima con {rima}',
             ],
         },
         
@@ -150,7 +157,16 @@ let cards = {
             name: 'gioco',
             description: '',
             list: [
-                "a turno, ogni giocatore dice una parola; quello dopo la ripete e ne aggiunge un'altra e così per ogni giocatore. Chi sbaglia beve 3 sorse. Inizia {player1}"
+                "A turno, ogni giocatore dice una parola; quello dopo la ripete e ne aggiunge un'altra e così per ogni giocatore. Chi sbaglia beve 3 sorse. Inizia {player1}"
+            ],
+        },
+        
+        mimo: {
+            name: 'mimo',
+            description: '',
+            list: [
+                "{player1}, mima qualcosa",
+                "{player1}, mima {mimo}",
             ],
         },
         
@@ -158,6 +174,7 @@ let cards = {
             name: 'specchio',
             description: '',
             list: [
+                '{player1}, scegli una persona con cui specchiarti',
                 '{player1}, sei specchiato con {player2}',
             ],
         },
@@ -166,7 +183,7 @@ let cards = {
             name: 'sfida',
             description: '',
             list: [
-                '{player1}, fai 20 piegamenti o bevi 5 sorse',
+                '{player1}, {sfida}',
             ],
         },
         
@@ -197,7 +214,9 @@ let cards = {
         quantotelarischi: {
             name: 'quanto te la rischi',
             description: '',
-            list: [],
+            list: [
+                'Quanto te la rischi da 1 a 20 di {quantotelarischi}'
+            ],
         },
         
         obbligo: {
@@ -212,7 +231,7 @@ let cards = {
             name: 'verità',
             description: '',
             list: [
-                '{player1}, chi ti faresti dei presenti?'
+                '{player1}, {verità}'
             ],
         },
         
@@ -220,10 +239,21 @@ let cards = {
             name: 'coppa',
             description: '',
             list: [
-                '{player1}, versa il contenuto del tuo bicchiere nella coppa'
+                '{player1}, versa il contenuto del tuo bicchiere nella coppa',
+                '{player1}, versa il contenuto del tuo bicchiere nella coppa',
+                '{player1}, versa il contenuto del tuo bicchiere nella coppa',
+                '{player1}, bevi tutto il contenuto della coppa'
             ],
         },
-        
+
+        missionesegreta: {
+            name: 'missionesegreta',
+            description: '',
+            list: [
+                'NON LEGGERE AD ALTA VOCE: la tua missione segreta è {missionesegreta}. Se ci riesci, hai diritto a scegliere un giocatore che deve farsi il bicchiere a goccia'
+            ],
+        },
+
         variabili: {
             voto: [
                 'il più bello',
@@ -234,20 +264,33 @@ let cards = {
                 'essere invisibili o teletrasportarvi',
             ],
             
-            haimai: [
-                ''
-            ],
-            
-            categoria: [],
-            
             rima: [
                 'palazzo',
                 'bronzo',
                 'biga',
                 'tana',
             ],
+
+            mimo: [
+                'una barca',
+                'un mendicante'
+            ],
+
+            sfida: [
+                'fai 20 piegamenti o bevi 5 sorse'
+            ],
             
-            quantotelarischi: [],
+            quantotelarischi: [
+                'bere il bicchiere a goccia'
+            ],
+
+            verità: [
+                'chi ti faresti dei presenti?',
+            ],
+
+            missionesegreta: [
+                'versare lo stesso alcolico in tutti i bicchieri del tavolo'
+            ]
         },
     },
     
@@ -953,11 +996,8 @@ let setMode = (mode) => {
 }
 
 let setGame = () => {
-    
     settings.classList.add('hidden')
     typeSelector.classList.add('hidden')
-    
-
 }
 
 let setExtraction = () => {
@@ -1006,13 +1046,6 @@ function replaceWords(cardText) {
         let scelta = getRandomWord('scelta')
 
         cardText = cardText.replace('{scelta}', scelta);
-    }
-
-    // haimai
-    if (cardText.includes('{haimai}')) {
-        let haimai = getRandomWord('haimai')
-
-        cardText = cardText.replace('{haimai}', haimai);
     }
 
     // categoria
@@ -1081,6 +1114,7 @@ let showExtraction = (card, description, ind) => {
     // apertura edit
     const edit = extractionElement.querySelector('.edit')
     const editPage = document.querySelector('.editPage')
+
     edit.addEventListener('click', function(){
         editPage.classList.remove('hidden')
         questionMark.classList.add('hidden')
@@ -1112,8 +1146,6 @@ let showExtraction = (card, description, ind) => {
     nextButton.addEventListener('click', function(){
         setExtraction()
     })
-
-    setConteggio()
 }
 
 
@@ -1176,7 +1208,6 @@ let setGameFinished = () => {
     placeHolder.innerHTML = null
     placeHolder.appendChild(gameFinishedElement)
 }
-
 
 /*
 // estraiamo un giocatore casuale
@@ -1287,6 +1318,9 @@ modeElements.forEach( (modeElement) => {
 playAgain.addEventListener('click', reGame)
 
 
-// todo descrizioni lingue
 // todo edit
 // todo quando finiscono le rime
+// todo aggiungi mimo e missione segreta
+// todo modifica le variabili all'interno della funzione replaceWord(variable)
+// todo gestisci le diverse modalità
+// todo modifica le tipologie all'interno delle diverse modalità
