@@ -1162,7 +1162,7 @@ let showExtraction = (type, text, description) => {
     const guide = template.querySelector('#guide')
 
     // guida
-    guideBtn.addEventListener('click', openGuide, guide)
+    guideBtn.addEventListener('click', () => openGuide(guide))
     
     // edit
     editBtn.addEventListener('click', goSettings)
@@ -1238,9 +1238,9 @@ let setGameFinished = () => {
 //^                              EVENTI
 //^========================================================================
 startBtn.addEventListener('click', goSettings)
-// goSettings() //!
-// goMode() //!
-// startGame() //!
+goSettings() //!
+goMode() //!
+startGame() //!
 
 
 addBtn.addEventListener('click', addBtnEvent)
@@ -1272,20 +1272,13 @@ modeElements.forEach( (modeElement) => {
 playAgainBtn.addEventListener('click', reGame)
 
 
-// todo edit
 // todo quando finiscono le rime
 // todo aggiungi mimo e missione segreta a tutte le lingue
 // todo modifica le variabili all'interno della funzione replaceWord(variable)
 // todo gestisci le diverse modalità
-// todo metti a display la carta
-// todo modifica le tipologie all'interno delle diverse modalità
-// todo salva l'ultima lingua selezionata
-// todo aggiungi tutti i focus
-// todo aggiungi l'evento conferma per aggiungere un giocatore
-// todo edit settings
 // todo aggiungi grafiche emme
-// todo aggiungi i ringraziamenti
-// todo rimuovi effetto di determinate carte
+// todo aggiungi i crediti
+// todo rimuovi effetto di determinate carte tipo regole che durano tot turni
 // todo gestisci le probabilità di uscita di diverse tipologie
 // todo carte standard per modalità creativa
 // todo crea pagina typeselector
