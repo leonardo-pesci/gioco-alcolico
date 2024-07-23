@@ -1,7 +1,6 @@
 header{
     color: white;
     background: radial-gradient(farthest-side, #727272, #422b05);
-    /* border-bottom: 4px solid aliceblue; */
     display: flex;
     flex-direction: column;
     align-items: center;

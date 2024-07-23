@@ -26,8 +26,6 @@ const languages = document.querySelectorAll('.language')
 
 
 
-
-
 //^========================================================================
 //^                            VARIABILI
 //^========================================================================
@@ -39,7 +37,7 @@ let modeSelected = 'standard'
 const langStorage = localStorage.getItem('language')
 if (langStorage) langSelected = JSON.parse(langStorage)
 const lastLanguageElement = document.querySelector('#' + langSelected)
-let gameStared = false
+let gameStarted = false
 let index = 0
 
 let types = [
@@ -891,13 +889,15 @@ let confirmBtnEvent = () => {
     // completa la lista
     const listElements = document.querySelectorAll('.listElementText')
     
+    players = []
     listElements.forEach ( (player) => {
         players.push(player.innerText)
     })
     
     if (playerInput.value != '') players.push(playerInput.value)
 
-    goMode()
+    settings.classList.add('hidden')
+    if (!gameStarted) goMode()
 
     document.removeEventListener('keydown', onEnterPressed)
 }
@@ -910,7 +910,6 @@ let onEnterPressed = (event) => {
 
 let goMode = () => {
     // cambia sezione
-    settings.classList.add('hidden')
     mode.classList.remove('hidden')
 }
 
@@ -920,11 +919,27 @@ let goTypeSelector = () => {
 }
 
 let startGame = () => {
-    gameStared = true
+    gameStarted = true
     mode.classList.add('hidden')
     typeSelector.classList.add('hidden')
 
     setExtraction()
+}
+
+let openGuide = (guide) => {
+    // apre la guida
+    guide.classList.remove('hidden')
+        
+    const exit = document.querySelector('#guideExit')
+
+    // chiude la guida
+    exit.addEventListener('click', () => {
+        guide.classList.add('hidden')
+    })
+
+    guide.addEventListener('click', (event) => {
+        if (!guideBox.contains(event.target)) guide.classList.add('hidden')
+    })
 }
 
 let reGame = () => {
@@ -1045,7 +1060,8 @@ let setMode = (mode) => {
 }
 
 let setExtraction = () => {
-    // estraiamo una tipologia di carta
+
+    // estrae una tipologia di carta
     let type = getRandomType()
     let object = cards[langSelected][type]
 
@@ -1138,9 +1154,7 @@ let showExtraction = (type, text, description) => {
     // aggiunge l'evento per estrarre la prossima carta
     gameBox.addEventListener('click', (event) => {
 
-        if (!(guideBtn.contains(event.target) || editBtn.contains(event.target))) {
-            setExtraction();
-        }
+        if (!(guideBtn.contains(event.target) || editBtn.contains(event.target))) setExtraction()
     })
     
     const guideBtn = template.querySelector('#guideBtn')
@@ -1148,34 +1162,10 @@ let showExtraction = (type, text, description) => {
     const guide = template.querySelector('#guide')
 
     // guida
-    guideBtn.addEventListener('click', () => {
-        
-        guide.classList.remove('hidden')
-        
-        const exit = document.querySelector('#guideExit')
-
-        exit.addEventListener('click', () => {
-            guide.classList.add('hidden')
-        })
-    })
+    guideBtn.addEventListener('click', openGuide, guide)
     
-    // apertura edit
-
-    editBtn.addEventListener('click', () => {
-        settings.classList.remove('hidden')
-        console.log(settings)
-
-        // chiusura edit
-        /*
-        const exitEdit = document.querySelector('.exitEdit')
-        exitEdit.addEventListener('click', function(){
-            editPage.classList.add('hidden')
-            questionMark.classList.remove('hidden')
-            edit.classList.remove('hidden')
-            contK.classList.remove('hidden')
-        })
-        */
-    })
+    // edit
+    editBtn.addEventListener('click', goSettings)
     
     // mostra il template
     placeHolder.appendChild(template)
@@ -1242,64 +1232,15 @@ let setGameFinished = () => {
     placeHolder.appendChild(gameFinishedElement)
 }
 
-/*
-// estraiamo un giocatore casuale
-
-    if(started === false){
-        if(numeroMazzi==2){
-            mazzo = mazzo.concat(secondoMazzo)
-            conteggio = 100
-        }else{
-            conteggio = 52
-        }
-
-        // procediamo con la prima estrazione
-        if(started === false){
-            setExtraction()
-        }else{
-            placeHolder.innerHTML = memory
-
-            const memory = memory.cloneNode(true)
-            
-            // apertura guida
-            const questionMark = memory.querySelector('.questionMark')
-            const contK = memory.querySelector('.conteggioK')
-            
-            questionMark.addEventListener('click', () => {
-                const guide = document.querySelector('.guide')
-
-                guide.classList.remove('hidden')
-                questionMark.classList.add('hidden')
-                edit.classList.add('hidden')
-                contK.classList.add('hidden')
-
-                // chiusura guida
-                const exit = document.querySelector('.exit')
-                exit.addEventListener('click', function(){
-                    guide.classList.add('hidden')
-                    questionMark.classList.remove('hidden')
-                    edit.classList.remove('hidden')
-                    contK.classList.remove('hidden')
-                })
-            })
-
-            // apertura edit
-            const edit = memory.querySelector('.edit')
-            edit.addEventListener('click', function(){
-                setGame()
-            })
-        }
-        */
-
 
 
 //^========================================================================
 //^                              EVENTI
 //^========================================================================
 startBtn.addEventListener('click', goSettings)
-goSettings() //!
-goMode() //!
-startGame() //!
+// goSettings() //!
+// goMode() //!
+// startGame() //!
 
 
 addBtn.addEventListener('click', addBtnEvent)
@@ -1325,8 +1266,6 @@ modeElements.forEach( (modeElement) => {
         let modeText = modeElement.innerText
         modeSelected = modeText.toLowerCase()
         setMode(modeSelected)
-
-        gameStared = true
     })
 })
 
@@ -1351,3 +1290,9 @@ playAgainBtn.addEventListener('click', reGame)
 // todo carte standard per modalità creativa
 // todo crea pagina typeselector
 // todo sistema icone romano e napoletano
+// todo salva l'ultima lingua usata e opacizza la bandiera corrispondente
+// todo chiedere ad emme se la guida deve sovrastare anche l'header
+// todo inserisci numero limite di giocatori
+// todo trasforma il template creando tutti gli elementi tramite funzioni js ???
+// todo come stracazzo è possibile che la variabile guide funzioni anche se non l'ho definita?
+// todo crea variabili all'interno di showExtraction

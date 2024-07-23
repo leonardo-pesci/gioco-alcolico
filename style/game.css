@@ -43,9 +43,7 @@
     cursor: pointer;
     border: 2px solid #000000;
     border-radius: 50%;
-    z-index: 100;
 }
-
 
 .conteggioK{
     color: white;
@@ -108,24 +106,6 @@
     align-items: center;
 }
 
-.extractionText p{
-    padding: auto;
-    margin: auto;
-}
-
-.next{
-    font-weight: 700;
-    width: 25%;
-    font-size: 20px;
-    color: black;
-    background-color: aliceblue;
-    border-radius: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
 #guideBtn{
     font-size: 22px;
     line-height: 1.1;
@@ -138,7 +118,16 @@
     right: 20px;
 }
 
-#guide{
+#guide {
+    background: #96b8d5c5;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#guideBox{
     position: absolute;
     top: 50vh;
     transform: translate(0, -50%);
@@ -164,7 +153,7 @@
     line-height: 1.1;
 }
 
-#guideBox{
+#guideInfo{
     margin: 48px 20px;
     height: 90%;
     overflow: scroll;
