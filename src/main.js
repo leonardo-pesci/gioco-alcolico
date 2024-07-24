@@ -39,6 +39,8 @@ if (langStorage) langSelected = JSON.parse(langStorage)
 const lastLanguageElement = document.querySelector('#' + langSelected)
 let gameStarted = false
 let index = 0
+let history = []
+let historyLength = 6 //!
 
 let types = [
     'sorsa',
@@ -73,9 +75,6 @@ let modes = [
 ]
 
 let players = []
-
-//!
-players = ['leo', 'emme']
 
 let cards = {
     ita: {
@@ -1083,7 +1082,12 @@ let setExtraction = () => {
     */
 }
 
-function replaceWords(cardText) {
+let updateHistory = (cardText) => {
+    if (history.length === historyLength) history.pop()
+    history.unshift(cardText)
+}
+
+let replaceWords = (cardText) => {
 
     // giocatore
     if (cardText.includes('{player1}')) {
@@ -1184,7 +1188,6 @@ let getRandomPlayer = (prevPlayer = null) => {
     } else {
         return player
     }
-
 }
 
 let getRandomWord = (variable) => {
@@ -1205,12 +1208,22 @@ let getRandomType = () => {
     let index = Math.floor(Math.random() * types.length)
     let type = types[index]
 
+    if (history.includes(type)) return getRandomType()
+    //! updateHistory(type)
+
     return type
 }
 
 let getRandomCard = (type) => {
-    // estraiamo un numero a caso
-    let index = Math.floor(Math.random() * cards[langSelected][type]['list'].length)
+    let index
+    if (modeSelected = 'creativa' && [].includes(type)) { //! aggiungi le tipologie che hanno valori standard
+        index = 0
+    } else if (Object.keys(cards[langSelected]['variabili']).includes(type)) {
+        let variables = cards[langSelected]['variabili'][type]
+        if (variables.length === 0) index = 0
+    } else {
+        index = Math.floor(Math.random() * cards[langSelected][type]['list'].length)
+    }
 
     return index
 }
@@ -1240,6 +1253,7 @@ let setGameFinished = () => {
 startBtn.addEventListener('click', goSettings)
 goSettings() //!
 confirmBtnEvent() //!
+players = ['emme', 'leo']
 goMode() //!
 startGame() //!
 
@@ -1290,3 +1304,6 @@ playAgainBtn.addEventListener('click', reGame)
 // todo trasforma il template creando tutti gli elementi tramite funzioni js ???
 // todo come stracazzo è possibile che la variabile guide funzioni anche se non l'ho definita?
 // todo crea variabili all'interno di showExtraction
+// todo modifica historyLength se le tipologie sono poche
+// todo minimo giocatori due (messaggio di errore)
+// todo aggiungi tipologie a getRandomCard()
