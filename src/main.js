@@ -1239,6 +1239,7 @@ let setGameFinished = () => {
 //^========================================================================
 startBtn.addEventListener('click', goSettings)
 goSettings() //!
+confirmBtnEvent() //!
 goMode() //!
 startGame() //!
 
