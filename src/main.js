@@ -82,6 +82,7 @@ let cards = {
             description: '',
             list: [
                 '{player1} beve due sorse',
+                '{player1} distribuisci due sorse',
                 'Tutte le ragazze bevono',
                 'Tutti i ragazzi bevono',
                 'Tutti bevono',
@@ -284,6 +285,15 @@ let cards = {
                 'versare lo stesso alcolico in tutti i bicchieri del tavolo'
             ]
         },
+
+        modes: [
+            'classica',
+            'difficile',
+            'hot',
+            'creativa',
+            'coppa',
+            'personalizzata',
+        ]
     },
     
     eng: {
@@ -423,6 +433,16 @@ let cards = {
             
             quantotelarischi: [],
         },
+
+        modes: [
+            'classic',
+            'hard',
+            'hot',
+            'creative',
+            'cup',
+            'custom',
+        ]
+
     },
     
     spa: {
@@ -562,6 +582,16 @@ let cards = {
             
             quantotelarischi: [],
         },
+
+        modes: [
+            'clásica',
+            'difícil',
+            'caliente',
+            'creativa',
+            'copa',
+            'personalizada',
+        ],
+        
     },
     
     rom: {
@@ -701,6 +731,16 @@ let cards = {
             
             quantotelarischi: [],
         },
+
+        modes: [
+            'a solita',
+            'intoppata',
+            'zozza',
+            'creativa',
+            'coppona',
+            'come te pare',
+        ],
+        
     },
     
     nap: {
@@ -840,6 +880,16 @@ let cards = {
             
             quantotelarischi: [],
         },
+
+        modes: [
+            "classica",
+            "complicat",
+            "focosa",
+            "creativa",
+            "'a coppa",
+            "fattiel' tu",
+        ],
+        
     }
 };
 
@@ -923,6 +973,7 @@ let updateLanguage = (lang) => {
 let goMode = () => {
     // cambia sezione
     mode.classList.remove('hidden')
+    fillModeSections()
 }
 
 let goTypeSelector = () => {
@@ -950,6 +1001,13 @@ let reGame = () => {
     window.location.reload()
 }
 
+let fillModeSections = () => {
+    
+    modeElements.forEach( (modeElement, index) => {
+        modeElement.innerText = cards[langSelected]['modes'][index]
+    });
+
+}
 
 
 //* Funzioni principali
@@ -1076,15 +1134,16 @@ let setMode = (mode) => {
 let setExtraction = () => {
     // estrae una tipologia di carta
     let type = getRandomType()
-    let object = cards[langSelected][type]
+    let typeObject = cards[langSelected][type]
 
-    let cardType = object['name']
-    let cardText = object['list'][getRandomCard(type)]
-    let cardDescription = object['description']
+    let cardType = typeObject['name']
+    let cardText = typeObject['list'][getRandomCard(type)]
+    let cardDescription = typeObject['description']
 
     cardText = replaceWords(cardText);
 
     showExtraction(cardType, cardText, cardDescription);
+
     /*
     if(conteggioK == 0){
         // mostriamo la schermata finale
