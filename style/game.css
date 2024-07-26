@@ -118,10 +118,11 @@
     right: 20px;
 }
 
+/* ^ Guide */
 #guide {
     background: #96b8d5c5;
     position: absolute;
-    top: 0;
+    top: 50px;
     bottom: 0;
     left: 0;
     right: 0;
@@ -129,7 +130,7 @@
 
 #guideBox{
     position: absolute;
-    top: 50vh;
+    top: calc(50vh - 50px);
     transform: translate(0, -50%);
     left: 35px;
     right: 35px;

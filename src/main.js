@@ -31,7 +31,6 @@ const languages = document.querySelectorAll('.language')
 //^========================================================================
 let conteggioK = 4
 let started = false
-let memory = ''
 let langSelected = 'ita'
 let modeSelected = 'standard'
 const langStorage = localStorage.getItem('language')
@@ -40,7 +39,7 @@ const lastLanguageElement = document.querySelector('#' + langSelected)
 let gameStarted = false
 let index = 0
 let history = []
-let historyLength = 6 //!
+let historyLength
 
 let types = [
     'sorsa',
@@ -846,8 +845,6 @@ let cards = {
 
 
 
-
-
 //^========================================================================
 //^                            FUNZIONI
 //^========================================================================
@@ -858,6 +855,10 @@ let goSettings = () => {
     header.classList.remove('hidden')
     settings.classList.remove('hidden')
     playerInput.focus()
+
+    // lingue
+    let langItem = document.querySelector(`#${langSelected}`)
+    updateLanguage(langItem)
 
     document.addEventListener('keydown', onEnterPressed)
 
@@ -907,6 +908,18 @@ let onEnterPressed = (event) => {
     }
 }
 
+let updateLanguage = (lang) => {
+    let name = lang.id
+
+    languages.forEach( (lang) => {
+        lang.classList.remove('selected')
+    })
+
+    langSelected = name
+    lang.classList.add('selected')
+    localStorage.setItem('language', JSON.stringify(langSelected))
+}
+
 let goMode = () => {
     // cambia sezione
     mode.classList.remove('hidden')
@@ -915,14 +928,6 @@ let goMode = () => {
 let goTypeSelector = () => {
     mode.classList.add('hidden')
     typeSelector.classList.remove('hidden')
-}
-
-let startGame = () => {
-    gameStarted = true
-    mode.classList.add('hidden')
-    typeSelector.classList.add('hidden')
-
-    setExtraction()
 }
 
 let openGuide = (guide) => {
@@ -948,6 +953,16 @@ let reGame = () => {
 
 
 //* Funzioni principali
+let startGame = () => {
+    historyLength = Math.floor(types.length / 2)
+
+    gameStarted = true
+    mode.classList.add('hidden')
+    typeSelector.classList.add('hidden')
+
+    setExtraction()
+}
+
 let setMode = (mode) => {
     switch (mode) {
         case 'classica':
@@ -1059,7 +1074,6 @@ let setMode = (mode) => {
 }
 
 let setExtraction = () => {
-
     // estrae una tipologia di carta
     let type = getRandomType()
     let object = cards[langSelected][type]
@@ -1082,9 +1096,9 @@ let setExtraction = () => {
     */
 }
 
-let updateHistory = (cardText) => {
+let updateHistory = (cardType) => {
     if (history.length === historyLength) history.pop()
-    history.unshift(cardText)
+    history.unshift(cardType)
 }
 
 let replaceWords = (cardText) => {
@@ -1139,39 +1153,38 @@ let replaceWords = (cardText) => {
 }
 
 let showExtraction = (type, text, description) => {
-
-    // svuota il placeholder
     placeHolder.innerHTML = null
-
-    // copia il template e lo compila
     const template = extractionTemplate.content.cloneNode(true)
 
-    // template.querySelector('.conteggioKText').innerHTML = `${conteggioK}K`
-
-    // inserisce tipo, testo ed immagine
-    let gameBox = template.querySelector('#gameBox')
-    let cardInfo = template.querySelector('#cardInfo')
-    gameBox.style = `background-color: #eeeeee`
-    template.querySelector('#cardType').innerHTML = `<span id="">${type}</span>`
-    template.querySelector('#cardText').innerHTML = `<span id="">${text}</span>`
-
-    // aggiunge l'evento per estrarre la prossima carta
-    gameBox.addEventListener('click', (event) => {
-
-        if (!(guideBtn.contains(event.target) || editBtn.contains(event.target))) setExtraction()
-    })
-    
+    // estraggo tutti gli elementi del template
+    const gameBox = template.querySelector('#gameBox')
+    const cardType = template.querySelector('#cardType')
+    const cardText = template.querySelector('#cardText')
     const guideBtn = template.querySelector('#guideBtn')
     const editBtn = template.querySelector('#editBtn')
     const guide = template.querySelector('#guide')
+    const guideTitle = template.querySelector('#guideTitle')
+    const guideText = template.querySelector('#guideText')
+    // template.querySelector('.conteggioKText').innerHTML = `${conteggioK}K`
 
-    // guida
+    // inserisce tipo, testo ed immagine
+    gameBox.style = `background-color: #eeeeee`
+    cardType.innerHTML = `<span id="">${type}</span>`
+    cardText.innerHTML = `<span id="">${text}</span>`
+
+    // compila la guida
+    guideTitle.innerText = type
+    guideText.innerText = description
+
+    // aggiunge l'evento per estrarre la prossima carta
+    gameBox.addEventListener('click', (event) => {
+        if (!(guideBtn.contains(event.target) || editBtn.contains(event.target))) setExtraction()
+    })
+
+    // guida ed edit
     guideBtn.addEventListener('click', () => openGuide(guide))
-    
-    // edit
     editBtn.addEventListener('click', goSettings)
     
-    // mostra il template
     placeHolder.appendChild(template)
 }
 
@@ -1209,7 +1222,7 @@ let getRandomType = () => {
     let type = types[index]
 
     if (history.includes(type)) return getRandomType()
-    //! updateHistory(type)
+    updateHistory(type)
 
     return type
 }
@@ -1218,9 +1231,8 @@ let getRandomCard = (type) => {
     let index
     if (modeSelected = 'creativa' && [].includes(type)) { //! aggiungi le tipologie che hanno valori standard
         index = 0
-    } else if (Object.keys(cards[langSelected]['variabili']).includes(type)) {
-        let variables = cards[langSelected]['variabili'][type]
-        if (variables.length === 0) index = 0
+    } else if (Object.keys(cards[langSelected]['variabili']).includes(type) && cards[langSelected]['variabili'][type].length === 0) {
+        index = 0
     } else {
         index = Math.floor(Math.random() * cards[langSelected][type]['list'].length)
     }
@@ -1251,11 +1263,11 @@ let setGameFinished = () => {
 //^                              EVENTI
 //^========================================================================
 startBtn.addEventListener('click', goSettings)
-goSettings() //!
-confirmBtnEvent() //!
+// goSettings() //!
+// confirmBtnEvent() //!
 players = ['emme', 'leo']
-goMode() //!
-startGame() //!
+// goMode() //!
+// startGame() //!
 
 
 addBtn.addEventListener('click', addBtnEvent)
@@ -1263,17 +1275,7 @@ addBtn.addEventListener('click', addBtnEvent)
 confirmBtn.addEventListener('click', confirmBtnEvent)
 
 languages.forEach( (lang) => {
-    lang.addEventListener('click', () => {
-        let name = lang.id
-
-        languages.forEach( (lang) => {
-            lang.classList.remove('selected')
-        })
-
-        langSelected = name
-        lang.classList.add('selected')
-        localStorage.setItem('language', JSON.stringify(langSelected))
-    })
+    lang.addEventListener('click', () => updateLanguage(lang))
 })
 
 modeElements.forEach( (modeElement) => {
@@ -1298,12 +1300,10 @@ playAgainBtn.addEventListener('click', reGame)
 // todo carte standard per modalità creativa
 // todo crea pagina typeselector
 // todo sistema icone romano e napoletano
-// todo salva l'ultima lingua usata e opacizza la bandiera corrispondente
-// todo chiedere ad emme se la guida deve sovrastare anche l'header
-// todo inserisci numero limite di giocatori
-// todo trasforma il template creando tutti gli elementi tramite funzioni js ???
 // todo come stracazzo è possibile che la variabile guide funzioni anche se non l'ho definita?
 // todo crea variabili all'interno di showExtraction
-// todo modifica historyLength se le tipologie sono poche
 // todo minimo giocatori due (messaggio di errore)
+// todo se i giocatori sono troppi, scroll visivo
 // todo aggiungi tipologie a getRandomCard()
+// todo metti in ordine la funzione showExtraction()
+// todo aggiungi il conteggioK
