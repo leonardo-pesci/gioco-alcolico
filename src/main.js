@@ -1253,6 +1253,7 @@ let showExtraction = (type, text, description) => {
 
     // estraggo tutti gli elementi del template
     const gameBox = template.querySelector('#gameBox')
+    const cardInfo = template.querySelector('#cardInfo')
     const cardType = template.querySelector('#cardType')
     const cardText = template.querySelector('#cardText')
     const guideBtn = template.querySelector('#guideBtn')
@@ -1280,9 +1281,8 @@ let showExtraction = (type, text, description) => {
     guideText.innerText = description
 
     // aggiunge l'evento per estrarre la prossima carta
-    gameBox.addEventListener('click', (event) => {
-        if (!(guideBtn.contains(event.target) || editBtn.contains(event.target))) setExtraction()
-    })
+    gameBox.addEventListener('click', setExtraction)
+    cardInfo.addEventListener('click', setExtraction)
 
     // guida ed edit
     guideBtn.addEventListener('click', () => openGuide(guide))
