@@ -111,6 +111,10 @@ let cards = {
             description: '',
             list: [
                 "Inventa una regola",
+                "Inventa una regola",
+                "Inventa una regola",
+                "Inventa una regola",
+                "Inventa una regola",
                 "D'ora in poi, gli altri dovranno riferirsi a voi con il nome della persona alla vostra destra"
             ],
         },
@@ -119,6 +123,10 @@ let cards = {
             name: 'hai mai',
             description: '',
             list: [
+                "Hai mai... inventa tu, chi l'ha fatto beve due sorse",
+                "Hai mai... inventa tu, chi l'ha fatto beve due sorse",
+                "Hai mai... inventa tu, chi l'ha fatto beve due sorse",
+                "Hai mai... inventa tu, chi l'ha fatto beve due sorse",
                 "Hai mai... inventa tu, chi l'ha fatto beve due sorse",
                 'Due sorse per tutti quelli che hanno chiamato la maestra "mamma"',
                 'Bevi una sorsa se hai avuto esperienze con persone del tuo stesso sesso',
@@ -130,6 +138,10 @@ let cards = {
             description: '',
             list: [
                 'Inventa una categoria',
+                'Inventa una categoria',
+                'Inventa una categoria',
+                'Inventa una categoria',
+                'Inventa una categoria',
                 'Posti in cui non sarebbe carino tirare fuori il cazzo',
             ],
         },
@@ -138,7 +150,6 @@ let cards = {
             name: 'ruolo',
             description: '',
             list: [
-                'Inventa un nuovo ruolo',
                 "{player1}, sei il re dei pollici: tutte le volte che vorrai, potrai mettere il pollice sul tavolo e gli altri dovranno seguirti. L'ultimo che lo farà, dovrà bere un sorso"
             ],
         },
@@ -164,7 +175,7 @@ let cards = {
             name: 'mimo',
             description: '',
             list: [
-                "{player1}, mima qualcosa",
+                "{player1}, mima {mimo}",
             ],
         },
         
@@ -206,6 +217,7 @@ let cards = {
             description: '',
             list: [
                 '{player1}, racconta una storia, vera o inventata: alla fine gli altri giocatori daranno un giudizio positivo o negativo, bevi un sorso per ogni giudizio negativo',
+                'Inventate una storia, {player1} comincia dicendo una frase, a turno, ogni giocatore aggiunge una frase, fino a terminare il giro'
             ],
         },
         
@@ -213,7 +225,7 @@ let cards = {
             name: 'quanto te la rischi',
             description: '',
             list: [
-                'Quanto te la rischi da 1 a 20 di {quantotelarischi}'
+                '{player1} quanto te la rischi da 1 a 10? {player2} sceglie la sfida'
             ],
         },
         
@@ -238,9 +250,6 @@ let cards = {
             description: '',
             list: [
                 '{player1}, versa il contenuto del tuo bicchiere nella coppa',
-                '{player1}, versa il contenuto del tuo bicchiere nella coppa',
-                '{player1}, versa il contenuto del tuo bicchiere nella coppa',
-                '{player1}, bevi tutto il contenuto della coppa'
             ],
         },
 
