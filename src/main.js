@@ -10,7 +10,7 @@ const mode = document.querySelector('#mode')
 const typeSelector = document.querySelector('#typeSelector')
 const placeHolder = document.querySelector('#placeHolder')
 const extractionTemplate = document.querySelector('#extractionTemplate')
-const gameFinishedTemplate = document.querySelector('#gameFinished')
+const endGame = document.querySelector('#endGame')
 
 // * Buttons
 const startBtn = document.querySelector('#startBtn')
@@ -23,13 +23,14 @@ let playerInput = document.querySelector('#playerInput')
 const card = document.querySelector('.card')
 const playersDisplay = document.querySelector('.playersDisplay')
 const languages = document.querySelectorAll('.language')
+const endGameTitle = document.querySelector('#endGameTitle')
 
 
 
 //^========================================================================
 //^                            VARIABILI
 //^========================================================================
-let conteggioK = 4
+let kCounter = 4
 let started = false
 let langSelected = 'ita'
 let modeSelected = 'standard'
@@ -102,7 +103,6 @@ let cards = {
             description: '',
             list: [
                 'Preferireste {scelta}? Votate insieme, il gruppo in minoranza beve 2 sorse',
-                ''
             ],
         },
         
@@ -286,14 +286,21 @@ let cards = {
             ]
         },
 
-        modes: [
-            'classica',
-            'difficile',
-            'hot',
-            'creativa',
-            'coppa',
-            'personalizzata',
-        ]
+        traduzioni: {
+            modes: [
+                'classica',
+                'difficile',
+                'hot',
+                'creativa',
+                'coppa',
+                'personalizzata',
+            ],
+
+            endGame: {
+                title: 'bevi tutta la coppa!',
+                button: 'rigioca'
+            },
+        },
     },
     
     eng: {
@@ -434,15 +441,21 @@ let cards = {
             quantotelarischi: [],
         },
 
-        modes: [
-            'classic',
-            'hard',
-            'hot',
-            'creative',
-            'cup',
-            'custom',
-        ]
+        traduzioni: {
+            modes: [
+                'classic',
+                'hard',
+                'hot',
+                'creative',
+                'cup',
+                'custom',
+            ],
 
+            endGame: {
+                title: 'drink the whole cup!',
+                button: 'play again'
+            },
+        },
     },
     
     spa: {
@@ -583,15 +596,21 @@ let cards = {
             quantotelarischi: [],
         },
 
-        modes: [
-            'clásica',
-            'difícil',
-            'caliente',
-            'creativa',
-            'copa',
-            'personalizada',
-        ],
-        
+        traduzioni: {
+            modes: [
+                'clásica',
+                'difícil',
+                'caliente',
+                'creativa',
+                'copa',
+                'personalizada',
+            ],
+
+            endGame: {
+                title: '¡bive toda la copa!',
+                button: 'juega de nuevo'
+            },
+        },
     },
     
     rom: {
@@ -732,15 +751,21 @@ let cards = {
             quantotelarischi: [],
         },
 
-        modes: [
-            'a solita',
-            'intoppata',
-            'zozza',
-            'creativa',
-            'coppona',
-            'come te pare',
-        ],
-        
+        traduzioni: {
+            modes: [
+                'a solita',
+                'intoppata',
+                'zozza',
+                'creativa',
+                'coppona',
+                'come te pare',
+            ],
+
+            endGame: {
+                title: 'e mo so cazzi tua!',
+                button: 'riggioca'
+            },
+        },     
     },
     
     nap: {
@@ -881,15 +906,21 @@ let cards = {
             quantotelarischi: [],
         },
 
-        modes: [
-            "classica",
-            "complicat",
-            "focosa",
-            "creativa",
-            "'a coppa",
-            "fattiel' tu",
-        ],
-        
+        traduzioni: {
+            modes: [
+                "classica",
+                "complicat",
+                "focosa",
+                "creativa",
+                "'a coppa",
+                "fattiel' tu",
+            ],
+
+            endGame: {
+                title: "biv tutt' cos!",
+                button: 'rigioca'
+            },
+        },        
     }
 };
 
@@ -1004,7 +1035,7 @@ let reGame = () => {
 let fillModeSections = () => {
     
     modeElements.forEach( (modeElement, index) => {
-        modeElement.innerText = cards[langSelected]['modes'][index]
+        modeElement.innerText = cards[langSelected]['traduzioni']['modes'][index]
     });
 
 }
@@ -1106,19 +1137,19 @@ let setMode = (mode) => {
 
         case 'coppa':
             types = [
-                'sorsa',
-                'voto',
-                'scelta',
-                'regola',
-                'haimai',
-                'categoria',
-                'ruolo',
-                'rima',
-                'gioco',
-                'specchio',
-                'sfida',
-                'linguaggio',
-                'duello',
+                // 'sorsa', //!
+                // 'voto',
+                // 'scelta',
+                // 'regola',
+                // 'haimai',
+                // 'categoria',
+                // 'ruolo',
+                // 'rima',
+                // 'gioco',
+                // 'specchio',
+                // 'sfida',
+                // 'linguaggio',
+                // 'duello',
                 'storia',
                 'coppa',
             ]
@@ -1289,12 +1320,24 @@ let getRandomType = () => {
 let getRandomCard = (type) => {
     let index
     if (modeSelected = 'creativa' && [].includes(type)) { //! aggiungi le tipologie che hanno valori standard
-        index = 0
+        return 0
     } else if (Object.keys(cards[langSelected]['variabili']).includes(type) && cards[langSelected]['variabili'][type].length === 0) {
-        index = 0
-    } else {
-        index = Math.floor(Math.random() * cards[langSelected][type]['list'].length)
+        return 0
     }
+
+    switch (type) {
+        case 'coppa':
+            kCounter--;
+            if (kCounter === 0) setGameFinished()
+            break
+            
+        default:
+            index = Math.floor(Math.random() * cards[langSelected][type]['list'].length)
+    }
+
+    index = Math.floor(Math.random() * cards[langSelected][type]['list'].length)
+
+
 
     return index
 }
@@ -1303,17 +1346,11 @@ let getRandomCard = (type) => {
 
 //* End game
 let setGameFinished = () => {
-    // cloniamo il template
-    const gameFinishedElement = gameFinishedTemplate.content.cloneNode(true)
-
-    gameFinishedElement.querySelector('.title').innerText = response
-
-    // nascondiamo il loader
-    loading.classList.add('hidden')
-
-    // rimpiazziamo il placeHolder
-    placeHolder.innerHTML = null
-    placeHolder.appendChild(gameFinishedElement)
+    endGame.classList.remove('hidden')
+    let endGameObject = cards[langSelected]['traduzioni']['endGame']
+    
+    endGameTitle.innerText = endGameObject['title']
+    playAgainBtn.innerText = endGameObject['button']
 }
 
 
@@ -1322,10 +1359,9 @@ let setGameFinished = () => {
 //^                              EVENTI
 //^========================================================================
 startBtn.addEventListener('click', goSettings)
-// goSettings() //!
+goSettings() //!
 // confirmBtnEvent() //!
 players = ['emme', 'leo']
-// goMode() //!
 // startGame() //!
 
 
