@@ -1400,15 +1400,11 @@ playAgainBtn.addEventListener('click', reGame)
 
 
 // todo aggiungi mimo e missione segreta a tutte le lingue
-// todo gestisci le diverse modalità
+// todo gestisci la modalità difficile
 // todo aggiungi grafiche emme
 // todo aggiungi i crediti
 // todo rimuovi effetto di determinate carte tipo regole che durano tot turni
 // todo crea pagina typeselector
 // todo sistema icone romano e napoletano
-// todo crea variabili all'interno di showExtraction
 // todo minimo giocatori due (messaggio di errore)
 // todo se i giocatori sono troppi, scroll visivo
-// todo aggiungi tipologie a getRandomCard()
-// todo metti in ordine la funzione showExtraction()
-// todo aggiungi il conteggioK
