@@ -1137,19 +1137,19 @@ let setMode = (mode) => {
 
         case 'coppa':
             types = [
-                // 'sorsa', //!
-                // 'voto',
-                // 'scelta',
-                // 'regola',
-                // 'haimai',
-                // 'categoria',
-                // 'ruolo',
-                // 'rima',
-                // 'gioco',
-                // 'specchio',
-                // 'sfida',
-                // 'linguaggio',
-                // 'duello',
+                'sorsa',
+                'voto',
+                'scelta',
+                'regola',
+                'haimai',
+                'categoria',
+                'ruolo',
+                'rima',
+                'gioco',
+                'specchio',
+                'sfida',
+                'linguaggio',
+                'duello',
                 'storia',
                 'coppa',
             ]
@@ -1165,6 +1165,16 @@ let setMode = (mode) => {
 let setExtraction = () => {
     // estrae una tipologia di carta
     let type = getRandomType()
+
+    if (type === 'coppa') {
+        kCounter--;
+        if (kCounter === 0) {
+            setGameFinished()
+            return
+        }
+
+    }
+    
     let typeObject = cards[langSelected][type]
 
     let cardType = typeObject['name']
@@ -1325,16 +1335,6 @@ let getRandomCard = (type) => {
         return 0
     }
 
-    switch (type) {
-        case 'coppa':
-            kCounter--;
-            if (kCounter === 0) setGameFinished()
-            break
-            
-        default:
-            index = Math.floor(Math.random() * cards[langSelected][type]['list'].length)
-    }
-
     index = Math.floor(Math.random() * cards[langSelected][type]['list'].length)
 
 
@@ -1382,6 +1382,7 @@ modeElements.forEach( (modeElement) => {
 })
 
 playAgainBtn.addEventListener('click', reGame)
+
 
 
 // todo quando finiscono le rime
