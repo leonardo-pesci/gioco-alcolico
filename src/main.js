@@ -278,12 +278,22 @@ let cards = {
                 'tana',
             ],
 
+            mimo: [
+                'un animale',
+                'un attore',
+                'un film',
+                'un mestiere',
+                'una città',
+            ],
+
             sfida: [
-                'fai 20 piegamenti o bevi 5 sorse'
+                'fai 20 piegamenti o bevi 5 sorse',
+                'bevi il bicchiere a goccia',
             ],
             
-            quantotelarischi: [
-                'bere il bicchiere a goccia'
+            duello: [
+                'braccio di ferro',
+                'guerra dei pollici',
             ],
 
             verità: [
@@ -292,7 +302,7 @@ let cards = {
 
             missionesegreta: [
                 'versare lo stesso alcolico in tutti i bicchieri del tavolo'
-            ]
+            ],
         },
 
         traduzioni: {
@@ -1181,7 +1191,6 @@ let setExtraction = () => {
             setGameFinished()
             return
         }
-
     }
     
     let typeObject = cards[langSelected][type]
@@ -1223,40 +1232,17 @@ let replaceWords = (cardText) => {
         }
     }
 
-    // voto
-    if (cardText.includes('{voto}')) {
-        let voto = getRandomWord('voto')
+    // variabili
+    let list = ['voto', 'scelta', 'rima', 'mimo', 'sfida', 'duello', 'verita', 'missionesegreta']
 
-        cardText = cardText.replace('{voto}', voto);
-    }
-
-    // scelta
-    if (cardText.includes('{scelta}')) {
-        let scelta = getRandomWord('scelta')
-
-        cardText = cardText.replace('{scelta}', scelta);
-    }
-
-    // categoria
-    if (cardText.includes('{categoria}')) {
-        let categoria = getRandomWord('categoria')
-
-        cardText = cardText.replace('{categoria}', categoria);
-    }
-
-    // rima
-    if (cardText.includes('{rima}')) {
-        let rima = getRandomWord('rima')
-
-        cardText = cardText.replace('{rima}', rima);
-    }
-
-    // quantotelarischi
-    if (cardText.includes('{quantotelarischi}')) {
-        let quantotelarischi = getRandomWord('quantotelarischi')
-
-        cardText = cardText.replace('{quantotelarischi}', quantotelarischi);
-    }
+    list.forEach( (variable) => {
+        let placeholder = '{' + variable + '}'
+        if (cardText.includes(placeholder)) {
+            let newWord = getRandomWord(variable)
+    
+            cardText = cardText.replace(placeholder, newWord);
+        }
+    })
 
     return cardText
 }
@@ -1274,12 +1260,20 @@ let showExtraction = (type, text, description) => {
     const guide = template.querySelector('#guide')
     const guideTitle = template.querySelector('#guideTitle')
     const guideText = template.querySelector('#guideText')
-    // template.querySelector('.conteggioKText').innerHTML = `${conteggioK}K`
 
     // inserisce tipo, testo ed immagine
     gameBox.style = `background-color: #eeeeee`
     cardType.innerHTML = `<span id="">${type}</span>`
     cardText.innerHTML = `<span id="">${text}</span>`
+
+    // inserisce il conteggio dei K
+    if (types.includes('coppa')) {
+        const kCounterDisplay = template.querySelector('#kCounterText')
+        kCounterDisplay.innerHTML = `${kCounter}K`
+
+        const kCounterBox = template.querySelector('#kCounterBox')
+        kCounterBox.classList.remove('hidden')
+    }
 
     // compila la guida
     guideTitle.innerText = type
@@ -1313,13 +1307,24 @@ let getRandomPlayer = (prevPlayer = null) => {
 }
 
 let getRandomWord = (variable) => {
+    // estrae la parola
     let list = cards[langSelected]['variabili'][variable]
     let index = Math.floor(Math.random() * list.length)
-
     let word = list[index]
-    for(let i = 0; i < list.length; i++){ 
+
+    // rimuove la parola dalla lista di variabili
+    for (let i = 0; i < list.length; i++){ 
         if ( list[i] === word) {
           list.splice(i, 1); 
+        }
+    }
+    
+    // rimuove la tipologia se le variabili sono finite
+    if (list.length === 0 && variable !== 'rima') {
+        for (let i = 0; i < types.length; i++){ 
+            if ( types[i] === variable) {
+              types.splice(i, 1); 
+            }
         }
     }
 
@@ -1338,15 +1343,16 @@ let getRandomType = () => {
 
 let getRandomCard = (type) => {
     let index
-    if (modeSelected = 'creativa' && [].includes(type)) { //! aggiungi le tipologie che hanno valori standard
-        return 0
-    } else if (Object.keys(cards[langSelected]['variabili']).includes(type) && cards[langSelected]['variabili'][type].length === 0) {
-        return 0
-    }
 
+    let condition1 = (modeSelected = 'creativa' && ['regola', 'haimai', 'categoria', 'specchio', 'rima'].includes(type)) // se la modalità è creativa e servono le carte libere
+    let condition2 = (type === 'rima' && cards[langSelected]['variabili']['rima'].length === 0) // se sono finite le rime
+    let condition3 = (['coppa', 'quantotelarischi'].includes(type)) // se la lista contiene una sola carta
+
+    // estrae la prima carta
+    if (condition1 || condition2 || condition3) return 0
+
+    // estrae una carta a caso dalla lista
     index = Math.floor(Math.random() * cards[langSelected][type]['list'].length)
-
-
 
     return index
 }
@@ -1373,7 +1379,6 @@ goSettings() //!
 players = ['emme', 'leo']
 // startGame() //!
 
-
 addBtn.addEventListener('click', addBtnEvent)
 
 confirmBtn.addEventListener('click', confirmBtnEvent)
@@ -1394,18 +1399,13 @@ playAgainBtn.addEventListener('click', reGame)
 
 
 
-// todo quando finiscono le rime
 // todo aggiungi mimo e missione segreta a tutte le lingue
-// todo modifica le variabili all'interno della funzione replaceWord(variable)
 // todo gestisci le diverse modalità
 // todo aggiungi grafiche emme
 // todo aggiungi i crediti
 // todo rimuovi effetto di determinate carte tipo regole che durano tot turni
-// todo gestisci le probabilità di uscita di diverse tipologie
-// todo carte standard per modalità creativa
 // todo crea pagina typeselector
 // todo sistema icone romano e napoletano
-// todo come stracazzo è possibile che la variabile guide funzioni anche se non l'ho definita?
 // todo crea variabili all'interno di showExtraction
 // todo minimo giocatori due (messaggio di errore)
 // todo se i giocatori sono troppi, scroll visivo

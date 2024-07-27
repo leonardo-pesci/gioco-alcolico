@@ -45,11 +45,11 @@
     border-radius: 50%;
 }
 
-.conteggioK{
+#kCounterBox{
     color: white;
     width: 67.6px;
     height: 100px;
-    background-image: url(img/dorso.png);
+    background-color: red;
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -61,23 +61,10 @@
 
 }
 
-.conteggioKText{
+#kCounterText{
     position: absolute;
     top: 26px;
     right: 19px;
-}
-
-.container{
-    max-width: 500px;
-    height: 100%;
-    padding: 0 8px;
-    margin: 100px auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 18px;
-    position: relative;
 }
 
 .cardImage{
