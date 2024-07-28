@@ -43,26 +43,26 @@ let history = []
 let historyLength
 
 let types = [
-    'sorsa',
-    'voto',
-    'scelta',
-    'regola',
-    'haimai',
-    'categoria',
-    'ruolo',
-    'rima',
-    'gioco',
-    'mimo',
-    'specchio',
-    'sfida',
-    'linguaggio',
-    'duello',
-    'storia',
-    'quantotelarischi',
-    'obbligo',
-    'verità',
-    'coppa',
-    'missionesegreta',
+    'sorsa', // fix
+    'voto', // var
+    'scelta', // var
+    'regola', // red
+    'haimai', // red
+    'categoria', // red
+    'ruolo', // fix
+    'rima', // var
+    'gioco', // fix
+    'mimo', // var
+    'specchio', // fix
+    'sfida', // var
+    'linguaggio', // red
+    'duello', // var
+    'storia', // fix
+    'quantotelarischi', // fix
+    'obbligo', // fix
+    'verità', // var
+    'coppa', // fix
+    'missionesegreta', // var
 ]
 
 let modes = [
@@ -1404,6 +1404,9 @@ let getRandomCard = (type) => {
     index = Math.floor(Math.random() * list.length)
     let card = list[index]
 
+    // elimina la carta se necessario
+    if (['regola', 'haimai', 'categoria', 'linguaggio'].includes(type)) list.splice(index, 1);
+    
     return card
 }
 
