@@ -1453,7 +1453,6 @@ playAgainBtn.addEventListener('click', reGame)
 
 
 // todo aggiungi mimo e missione segreta a tutte le lingue
-// todo gestisci la modalità difficile
 // todo aggiungi grafiche emme
 // todo aggiungi i crediti
 // todo rimuovi effetto di determinate carte tipo regole che durano tot turni
@@ -1461,3 +1460,16 @@ playAgainBtn.addEventListener('click', reGame)
 // todo sistema icone romano e napoletano
 // todo minimo giocatori due (messaggio di errore)
 // todo se i giocatori sono troppi, scroll visivo
+
+function saveSelection() {
+    const form = document.getElementById('typeSelectorForm');
+    const selectedTypes = Array.from(form.elements)
+        .filter(element => element.checked)
+        .map(element => element.name);
+
+    console.log('Tipologie di carte selezionate:', selectedTypes);
+
+    // Qui puoi salvare la selezione nell'applicazione
+    // Ad esempio, salvandola in localStorage o passando la selezione a un'altra funzione
+    localStorage.setItem('selectedCardTypes', JSON.stringify(selectedTypes));
+}

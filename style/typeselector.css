@@ -4,4 +4,49 @@
     background-color: red; /* ! */
     position: absolute;
     z-index: 4; /* ! */
+
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 600px;
+}
+
+#typeSelectorTitle {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#typeSelectorForm {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.typeSelectorElement {
+    flex: 1 1 calc(50% - 10px);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.typeSelectorElement label {
+    font-size: 16px;
+}
+
+#typeSelectorButton {
+    margin: 20px auto 0;
+    display: block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#typeSelectorButton:hover {
+    background-color: #0056b3;
 }

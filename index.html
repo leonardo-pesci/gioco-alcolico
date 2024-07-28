@@ -49,7 +49,10 @@
 
     </div>
 
+    <!-- ^ Credits -->
+    <div class="hidden" id="credits">
 
+    </div>
     
     <!-- ^ Settings -->
     <div class="hidden" id="settings">
@@ -74,8 +77,6 @@
         </div>
     </div>
 
-
-
     <!-- ^ Mode -->
     <div class="hidden" id="mode">
         <div id="modeBox">
@@ -88,13 +89,94 @@
         </div>
     </div>
 
-
-
     <!-- ^ Typeselector -->
     <div class="hidden" id="typeSelector">
 
+        <h1 id="typeSelectorTitle">Seleziona le Tipologie di Carte</h1>
+        <form id="typeSelectorForm">
+            <div class="typeSelectorElement">
+                <input type="checkbox" id="sorsa" name="sorsa" checked>
+                <label for="sorsa">Sorsa</label>
+            </div>
+            <div class="typeSelectorElement">
+                <input type="checkbox" id="voto" name="voto" checked>
+                <label for="voto">Voto</label>
+            </div>
+            <div class="typeSelectorElement">
+                <input type="checkbox" id="scelta" name="scelta" checked>
+                <label for="scelta">Scelta</label>
+            </div>
+            <div class="typeSelectorElement">
+                <input type="checkbox" id="regola" name="regola" checked>
+                <label for="regola">Regola</label>
+            </div>
+            <div class="typeSelectorElement">
+                <input type="checkbox" id="haimai" name="haimai" checked>
+                <label for="haimai">Hai Mai</label>
+            </div>
+            <div class="typeSelectorElement">
+                <input type="checkbox" id="categoria" name="categoria" checked>
+                <label for="categoria">Categoria</label>
+            </div>
+            <div class="typeSelectorElement">
+                <input type="checkbox" id="ruolo" name="ruolo" checked>
+                <label for="ruolo">Ruolo</label>
+            </div>
+            <div class="typeSelectorElement">
+                <input type="checkbox" id="rima" name="rima" checked>
+                <label for="rima">Rima</label>
+            </div>
+            <div class="typeSelectorElement">
+                <input type="checkbox" id="gioco" name="gioco" checked>
+                <label for="gioco">Gioco</label>
+            </div>
+            <div class="typeSelectorElement">
+                <input type="checkbox" id="mimo" name="mimo" checked>
+                <label for="mimo">Mimo</label>
+            </div>
+            <div class="typeSelectorElement">
+                <input type="checkbox" id="specchio" name="specchio" checked>
+                <label for="specchio">Specchio</label>
+            </div>
+            <div class="typeSelectorElement">
+                <input type="checkbox" id="sfida" name="sfida" checked>
+                <label for="sfida">Sfida</label>
+            </div>
+            <div class="typeSelectorElement">
+                <input type="checkbox" id="linguaggio" name="linguaggio" checked>
+                <label for="linguaggio">Linguaggio</label>
+            </div>
+            <div class="typeSelectorElement">
+                <input type="checkbox" id="duello" name="duello" checked>
+                <label for="duello">Duello</label>
+            </div>
+            <div class="typeSelectorElement">
+                <input type="checkbox" id="storia" name="storia" checked>
+                <label for="storia">Storia</label>
+            </div>
+            <div class="typeSelectorElement">
+                <input type="checkbox" id="quantotelarischi" name="quantotelarischi" checked>
+                <label for="quantotelarischi">Quanto te la rischi</label>
+            </div>
+            <div class="typeSelectorElement">
+                <input type="checkbox" id="obbligo" name="obbligo" checked>
+                <label for="obbligo">Obbligo</label>
+            </div>
+            <div class="typeSelectorElement">
+                <input type="checkbox" id="verità" name="verità" checked>
+                <label for="verità">Verità</label>
+            </div>
+            <div class="typeSelectorElement">
+                <input type="checkbox" id="coppa" name="coppa" checked>
+                <label for="coppa">Coppa</label>
+            </div>
+            <div class="typeSelectorElement">
+                <input type="checkbox" id="missionesegreta" name="missionesegreta" checked>
+                <label for="missionesegreta">Missione Segreta</label>
+            </div>
+            <button id="typeSelectorButton" type="button" onclick="saveSelection()">Salva</button>
+        </form>
     </div>
-
 
     <!-- ^ Game -->
     <div id="placeHolder"></div>
@@ -131,11 +213,6 @@
 
     </template>
 
-
-
-
-    
-
     <!-- ^ Endgame -->
     <div class="hidden" id="endGame">
         <div id="endGameBox">
@@ -144,8 +221,6 @@
             <button class="btn1" id="playAgainBtn"></div>
         </div>
     </div>
-
-
     
     <!-- ^ Script -->
     <script src="./src/main.js"></script>
