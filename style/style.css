@@ -25,6 +25,7 @@ body {
     width: 100vw;
     height: 50px;
     margin: 0;
+    z-index: 2;
 }
 
 /* ^ Class */

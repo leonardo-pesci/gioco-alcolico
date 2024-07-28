@@ -34,6 +34,7 @@ let kCounter = 4
 let started = false
 let langSelected = 'ita'
 let modeSelected = 'standard'
+let difficulty
 const langStorage = localStorage.getItem('language')
 if (langStorage) langSelected = JSON.parse(langStorage)
 const lastLanguageElement = document.querySelector('#' + langSelected)
@@ -82,8 +83,8 @@ let cards = {
             name: 'sorsa',
             description: '',
             list: [
-                '{player1} beve due sorse',
-                '{player1} distribuisci due sorse',
+                '{player1} beve {number} sorse',
+                '{player1} distribuisci {number} sorse',
                 'Tutte le ragazze bevono',
                 'Tutti i ragazzi bevono',
                 'Tutti bevono',
@@ -94,7 +95,7 @@ let cards = {
             name: 'voto',
             description: '',
             list: [
-                'Votate {voto}, riceverà 3 sorse'
+                'Votate {voto}, riceverà {number} sorse'
             ],
         },
         
@@ -102,7 +103,7 @@ let cards = {
             name: 'scelta',
             description: '',
             list: [
-                'Preferireste {scelta}? Votate insieme, il gruppo in minoranza beve 2 sorse',
+                'Preferireste {scelta}? Votate insieme, il gruppo in minoranza beve {number} sorse',
             ],
         },
         
@@ -123,13 +124,13 @@ let cards = {
             name: 'hai mai',
             description: '',
             list: [
-                "Hai mai... inventa tu, chi l'ha fatto beve due sorse",
-                "Hai mai... inventa tu, chi l'ha fatto beve due sorse",
-                "Hai mai... inventa tu, chi l'ha fatto beve due sorse",
-                "Hai mai... inventa tu, chi l'ha fatto beve due sorse",
-                "Hai mai... inventa tu, chi l'ha fatto beve due sorse",
-                'Due sorse per tutti quelli che hanno chiamato la maestra "mamma"',
-                'Bevi una sorsa se hai avuto esperienze con persone del tuo stesso sesso',
+                "Hai mai... inventa tu, chi l'ha fatto beve {number} sorse",
+                "Hai mai... inventa tu, chi l'ha fatto beve {number} sorse",
+                "Hai mai... inventa tu, chi l'ha fatto beve {number} sorse",
+                "Hai mai... inventa tu, chi l'ha fatto beve {number} sorse",
+                "Hai mai... inventa tu, chi l'ha fatto beve {number} sorse",
+                '{number} sorse per tutti quelli che hanno chiamato la maestra "mamma"',
+                'Bevi {number} sorse se hai avuto esperienze con persone del tuo stesso sesso',
             ],
         },
         
@@ -150,7 +151,7 @@ let cards = {
             name: 'ruolo',
             description: '',
             list: [
-                "{player1}, sei il re dei pollici: tutte le volte che vorrai, potrai mettere il pollice sul tavolo e gli altri dovranno seguirti. L'ultimo che lo farà, dovrà bere un sorso"
+                "{player1}, sei il re dei pollici: tutte le volte che vorrai, potrai mettere il pollice sul tavolo e gli altri dovranno seguirti. L'ultimo che lo farà, dovrà bere {number} sorse"
             ],
         },
         
@@ -167,7 +168,7 @@ let cards = {
             name: 'gioco',
             description: '',
             list: [
-                "A turno, ogni giocatore dice una parola; quello dopo la ripete e ne aggiunge un'altra e così per ogni giocatore. Chi sbaglia beve 3 sorse. Inizia {player1}"
+                "A turno, ogni giocatore dice una parola; quello dopo la ripete e ne aggiunge un'altra e così per ogni giocatore. Chi sbaglia beve {number} sorse. Inizia {player1}"
             ],
         },
         
@@ -262,49 +263,70 @@ let cards = {
         },
 
         variabili: {
-            voto: [
-                'il più bello',
-                'chi verrà arrestato più probabilmente',
-            ],
-            
-            scelta: [
-                'essere invisibili o teletrasportarvi',
-            ],
-            
-            rima: [
-                'palazzo',
-                'bronzo',
-                'biga',
-                'tana',
-            ],
+            normali: {
 
-            mimo: [
-                'un animale',
-                'un attore',
-                'un film',
-                'un mestiere',
-                'una città',
-            ],
+                voto: [
+                    'il più bello',
+                    'chi verrà arrestato più probabilmente',
+                ],
+                
+                scelta: [
+                    'essere invisibili o teletrasportarvi',
+                ],
+                
+                rima: [
+                    'palazzo',
+                    'bronzo',
+                    'biga',
+                    'tana',
+                ],
+                
+                mimo: [
+                    'un animale',
+                    'un attore',
+                    'un film',
+                    'un mestiere',
+                    'una città',
+                ],
+                
+                sfida: [
+                    'fai 20 piegamenti o bevi 5 sorse',
+                    'bevi il bicchiere a goccia',
+                ],
+                
+                duello: [
+                    'braccio di ferro',
+                    'guerra dei pollici',
+                ],
+                
+                verità: [
+                    'chi ti faresti dei presenti?',
+                ],
+                
+                missionesegreta: [
+                    'versare lo stesso alcolico in tutti i bicchieri del tavolo'
+                ],
+            },
 
-            sfida: [
-                'fai 20 piegamenti o bevi 5 sorse',
-                'bevi il bicchiere a goccia',
-            ],
-            
-            duello: [
-                'braccio di ferro',
-                'guerra dei pollici',
-            ],
+            difficili: {
+                rima: [
+                    'allegro'
+                ],
 
-            verità: [
-                'chi ti faresti dei presenti?',
-            ],
+                sfida: [
+                    'sfida difficile'
+                ],
 
-            missionesegreta: [
-                'versare lo stesso alcolico in tutti i bicchieri del tavolo'
-            ],
+                duello: [
+                    'duello difficile'
+                ],
+
+                missionesegreta: [
+                    'missione difficile'
+                ],
+            },
         },
-
+            
         traduzioni: {
             modes: [
                 'classica',
@@ -1060,6 +1082,7 @@ let fillModeSections = () => {
 }
 
 
+
 //* Funzioni principali
 let startGame = () => {
     historyLength = Math.floor(types.length / 2)
@@ -1072,6 +1095,11 @@ let startGame = () => {
 }
 
 let setMode = (mode) => {
+    // setta la variabile difficulty
+    if (modeSelected === 'difficile') difficulty = 'difficili'
+    else difficulty = 'normali'
+
+    // setta la lista di tipologie
     switch (mode) {
         case 'classica':
             types = [
@@ -1100,19 +1128,19 @@ let setMode = (mode) => {
                 'sorsa',
                 'voto',
                 'scelta',
-                'regola',
+                'regola', // fix
                 'haimai',
                 'categoria',
                 'ruolo',
-                'rima',
+                'rima', // var
                 'gioco',
                 'specchio',
-                'sfida',
-                'linguaggio',
-                'duello',
+                'sfida', // var
+                'linguaggio', // fix
+                'duello', // var
                 'storia',
                 'quantotelarischi',
-                'missionesegreta',
+                'missionesegreta', // var
             ]
             startGame()
             break
@@ -1177,7 +1205,7 @@ let setMode = (mode) => {
         case 'personalizzata':
             types = []
             goTypeSelector()
-        break
+            break
     }
 }
 
@@ -1231,6 +1259,12 @@ let replaceWords = (cardText) => {
             cardText = cardText.replace('{player2}', player2);
         }
     }
+
+    // numero sorse
+    let number
+    if (modeSelected === 'difficile') number = 2
+    else number = 3
+    if (cardText.includes('{number}')) cardText = cardText.replace('{number}', number);
 
     // variabili
     let list = ['voto', 'scelta', 'rima', 'mimo', 'sfida', 'duello', 'verita', 'missionesegreta']
@@ -1307,8 +1341,13 @@ let getRandomPlayer = (prevPlayer = null) => {
 }
 
 let getRandomWord = (variable) => {
+
+    // estrae la lista
+    let list
+    if (['rima', 'sfida', 'duello', 'missionesegreta'].includes(variable)) list = cards[langSelected]['variabili'][difficulty][variable]
+    else list = cards[langSelected]['variabili']['normali'][variable]
+
     // estrae la parola
-    let list = cards[langSelected]['variabili'][variable]
     let index = Math.floor(Math.random() * list.length)
     let word = list[index]
 
@@ -1344,8 +1383,8 @@ let getRandomType = () => {
 let getRandomCard = (type) => {
     let index
 
-    let condition1 = (modeSelected = 'creativa' && ['regola', 'haimai', 'categoria', 'specchio', 'rima'].includes(type)) // se la modalità è creativa e servono le carte libere
-    let condition2 = (type === 'rima' && cards[langSelected]['variabili']['rima'].length === 0) // se sono finite le rime
+    let condition1 = (modeSelected === 'creativa' && ['regola', 'haimai', 'categoria', 'specchio', 'rima'].includes(type)) // se la modalità è creativa e servono le carte libere
+    let condition2 = (type === 'rima' && cards[langSelected]['variabili'][difficulty]['rima'].length === 0) // se sono finite le rime
     let condition3 = (['coppa', 'quantotelarischi'].includes(type)) // se la lista contiene una sola carta
 
     // estrae la prima carta
