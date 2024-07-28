@@ -34,7 +34,6 @@ let kCounter = 4
 let started = false
 let langSelected = 'ita'
 let modeSelected = 'standard'
-let difficulty
 const langStorage = localStorage.getItem('language')
 if (langStorage) langSelected = JSON.parse(langStorage)
 const lastLanguageElement = document.querySelector('#' + langSelected)
@@ -118,6 +117,9 @@ let cards = {
                 "Inventa una regola",
                 "D'ora in poi, gli altri dovranno riferirsi a voi con il nome della persona alla vostra destra"
             ],
+            list2: [
+                "regola difficile"
+            ]
         },
         
         haimai: {
@@ -202,6 +204,9 @@ let cards = {
             description: '',
             list: [
                 'Siete in Russia'
+            ],
+            list2: [
+                "linguaggio difficile"
             ],
         },
         
@@ -1095,9 +1100,6 @@ let startGame = () => {
 }
 
 let setMode = (mode) => {
-    // setta la variabile difficulty
-    if (modeSelected === 'difficile') difficulty = 'difficili'
-    else difficulty = 'normali'
 
     // setta la lista di tipologie
     switch (mode) {
@@ -1132,15 +1134,15 @@ let setMode = (mode) => {
                 'haimai',
                 'categoria',
                 'ruolo',
-                'rima', // var
+                'rima',
                 'gioco',
                 'specchio',
-                'sfida', // var
+                'sfida',
                 'linguaggio', // fix
-                'duello', // var
+                'duello',
                 'storia',
                 'quantotelarischi',
-                'missionesegreta', // var
+                'missionesegreta',
             ]
             startGame()
             break
@@ -1222,9 +1224,8 @@ let setExtraction = () => {
     }
     
     let typeObject = cards[langSelected][type]
-
     let cardType = typeObject['name']
-    let cardText = typeObject['list'][getRandomCard(type)]
+    let cardText = getRandomCard(type)
     let cardDescription = typeObject['description']
 
     cardText = replaceWords(cardText);
@@ -1340,12 +1341,13 @@ let getRandomPlayer = (prevPlayer = null) => {
     }
 }
 
-let getRandomWord = (variable) => {
+let getRandomWord = (type) => {
 
     // estrae la lista
-    let list
-    if (['rima', 'sfida', 'duello', 'missionesegreta'].includes(variable)) list = cards[langSelected]['variabili'][difficulty][variable]
-    else list = cards[langSelected]['variabili']['normali'][variable]
+    let difficulty
+    if (['rima', 'sfida', 'duello', 'missionesegreta'].includes(type) && modeSelected === 'difficile') difficulty = 'difficili'
+    else difficulty = 'normali'
+    let list = cards[langSelected]['variabili'][difficulty][type]
 
     // estrae la parola
     let index = Math.floor(Math.random() * list.length)
@@ -1359,9 +1361,9 @@ let getRandomWord = (variable) => {
     }
     
     // rimuove la tipologia se le variabili sono finite
-    if (list.length === 0 && variable !== 'rima') {
+    if (list.length === 0 && type !== 'rima') {
         for (let i = 0; i < types.length; i++){ 
-            if ( types[i] === variable) {
+            if ( types[i] === type) {
               types.splice(i, 1); 
             }
         }
@@ -1382,18 +1384,27 @@ let getRandomType = () => {
 
 let getRandomCard = (type) => {
     let index
+    let difficulty
+    if (modeSelected === 'difficile') difficulty = 'difficili'
+    else difficulty = 'normali'
 
     let condition1 = (modeSelected === 'creativa' && ['regola', 'haimai', 'categoria', 'specchio', 'rima'].includes(type)) // se la modalità è creativa e servono le carte libere
     let condition2 = (type === 'rima' && cards[langSelected]['variabili'][difficulty]['rima'].length === 0) // se sono finite le rime
     let condition3 = (['coppa', 'quantotelarischi'].includes(type)) // se la lista contiene una sola carta
 
     // estrae la prima carta
-    if (condition1 || condition2 || condition3) return 0
+    if (condition1 || condition2 || condition3) index = 0
 
     // estrae una carta a caso dalla lista
-    index = Math.floor(Math.random() * cards[langSelected][type]['list'].length)
+    let listType
+    if (['regola', 'linguaggio'].includes(type) && modeSelected === 'difficile') listType = 'list2'
+    else listType = 'list'
 
-    return index
+    let list = cards[langSelected][type][listType]
+    index = Math.floor(Math.random() * list.length)
+    let card = list[index]
+
+    return card
 }
 
 
